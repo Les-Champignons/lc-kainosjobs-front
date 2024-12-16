@@ -1,0 +1,78 @@
+{% extends "govuk/template.njk" %}
+
+{% from "govuk/components/header/macro.njk" import govukHeader %}
+{% from "govuk/components/footer/macro.njk" import govukFooter %}
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+
+{% block head %}
+    <link rel="stylesheet" href="/styles/global.css">
+    <link rel="stylesheet" href="/styles/govuk-frontend-modified.css">
+    <link href="https://fonts.cdnfonts.com/css/galano-grotesque-alt" rel="stylesheet">
+{% endblock %}
+
+{% block headIcons %}
+    <link rel="icon" href="/images/kainos_favicon.ico">
+{% endblock %}
+
+{% block pageTitle %}
+    Kainos Jobs
+{% endblock %}
+
+{% block header %}
+    {{ govukHeader({
+        homepageUrl: "/",
+        serviceName: "Kainos Jobs",
+        serviceUrl: "/",
+        classes: "govuk-header--full-width-border"
+    }) }}
+    {{ govukServiceNavigation({
+        navigation: [
+        ]
+      }) }}
+{% endblock %}
+
+{% block beforeContent %}
+    {{ govukPhaseBanner({
+        tag: {
+            text: "Prototype",
+            classes: "govuk-tag--blue"
+        },
+        html: 'This is a prototype of a new service. Some parts do not work yet – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.'
+    }) }}
+{% endblock %}
+
+{% block footer %}
+    <footer class="govuk-footer">
+        <div class="govuk-width-container">
+            <div class="govuk-footer__meta">
+            <div class="govuk-footer__meta-item govuk-footer__meta-item--grow">
+                <span class="govuk-footer__licence-description">
+                4-6 Upper Cres, Belfast BT7 1NT <br />
+                Registered in NI NI019370 <br />
+                028 9057 1100
+                </span>
+            </div>
+            <div class="govuk-footer__meta-item">
+                <a
+                class="govuk-footer__link govuk-footer__copyright-logo"
+                href="https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/">
+                © Kainos Software Limited
+                </a>
+            </div>
+            </div>
+        </div>
+    </footer>
+{% endblock %}
+
+{% block bodyEnd %}
+  {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
+  <script type="module" src="/govuk-frontend.min.js"></script>
+  <script type="module">
+    import { initAll } from '/govuk-frontend.min.js'
+    initAll()
+  </script>
+{% endblock %}
