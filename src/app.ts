@@ -14,7 +14,6 @@ app.use(bodyParser.urlencoded({
 
 const env = nunjucks.configure([
   'node_modules/govuk-frontend/dist',
-  'node_modules/hmrc-frontend',
   'views'
 ], {
     autoescape: true,
