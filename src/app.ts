@@ -2,6 +2,7 @@ import express from "express";
 import nunjucks from "nunjucks";
 import bodyParser from "body-parser";
 import session from "express-session";
+import { logger } from "./logger";
 
 const app = express();
 
@@ -19,10 +20,10 @@ const env = nunjucks.configure([
 });
 
 app.listen(process.env.port || 3000, () => {
-    console.log("Application running");
+    logger.info(`Application listening on port ${process.env.port || 3000}`);
 });
 
-app.use(session({ secret: 'SUPER_SECRET', cookie: { maxAge: 28800000 } }));
+app.use(session({ secret: process.env.SESSION_SECRET, cookie: { maxAge: parseInt(process.env.SESSION_MAX_AGE) || 28800000 } }));
 
 declare module "express-session" {
     interface SessionData {

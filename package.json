@@ -25,6 +25,7 @@
     "express-session": "^1.18.1",
     "govuk-frontend": "^5.7.1",
     "nunjucks": "^3.2.4",
-    "sass": "^1.83.0"
+    "sass": "^1.83.0",
+    "winston": "^3.17.0"
   }
 }
