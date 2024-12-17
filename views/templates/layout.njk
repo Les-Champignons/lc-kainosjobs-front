@@ -8,6 +8,8 @@
 {% from "govuk/components/table/macro.njk" import govukTable %}
 {% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
 
+{% from "hmrc/components/header/macro.njk" import hmrcHeader %}
+
 {% block head %}
     <link rel="stylesheet" href="/styles/global.css">
     <link rel="stylesheet" href="/styles/govuk-frontend-modified.css">
@@ -23,12 +25,23 @@
 {% endblock %}
 
 {% block header %}
-    {{ govukHeader({
-        homepageUrl: "/",
-        serviceName: "Kainos Jobs",
-        serviceUrl: "/",
-        classes: "govuk-header--full-width-border"
-    }) }}
+    {% if request.session.token %}
+        {{ hmrcHeader({
+            homepageUrl: "/",
+            serviceName: "Kainos Jobs",
+            serviceUrl: "/",
+            classes: "govuk-header--full-width-border",
+            signOutHref : "/signout"
+        }) }}
+    {% else %}
+        {{ hmrcHeader({
+            homepageUrl: "/",
+            serviceName: "Kainos Jobs",
+            serviceUrl: "/",
+            classes: "govuk-header--full-width-border"
+        }) }}
+    {% endif %}
+    
     {{ govukServiceNavigation({
         navigation: [
         ]

@@ -1,0 +1,65 @@
+{% extends "templates/layout.njk" %}
+
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/password-input/macro.njk" import govukPasswordInput %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+
+{% block content %}
+
+<main class="govuk-main-wrapper">
+    <div class="govuk-grid-row">
+
+<div class="govuk-grid-column-two-thirds">
+    
+    {% set html %}
+    <p class="govuk-body">Do not share your email and password with anyone else.</p>
+{% endset %}
+
+{{ govukNotificationBanner({
+    titleText: "Keeping your information secure",
+  html: html
+}) }}
+
+  <h1 class="govuk-heading-xl">Sign in to Kainos Jobs</h1>
+
+  <form action="/login" class="form" method="post">
+
+  
+  {{ govukInput({
+    id: "email",
+    name: "email",
+    classes: "govuk-input--width-20",
+    errorMessage: {
+        text: "Enter a valid email and password."
+    } if errormessage else false,
+    label: {
+        text: "Email"
+    }
+  }) }}
+
+  {{ govukPasswordInput({
+    label: {
+      text: "Password"
+    },
+    id: "password",
+    name: "password",
+    classes: "govuk-input--width-20"
+  }) }}
+
+    {{ govukButton({
+        text: "Sign in",
+        preventDoubleClick: true
+      }) }}
+
+</form>
+
+<h2 class="govuk-heading-m">New users of Kainos Jobs</h2>
+<p class="govuk-body">
+    <a class="govuk-link" href="/register">Create an account</a>
+</p>
+
+  </div>
+</div>
+</main>
+
+{% endblock %}

@@ -3,6 +3,7 @@ import nunjucks from "nunjucks";
 import bodyParser from "body-parser";
 import session from "express-session";
 import { logger } from "./logger";
+import { getLoginForm, getLogoutForm, postLoginForm } from "./controllers/AuthController";
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.use(bodyParser.urlencoded({
 
 const env = nunjucks.configure([
   'node_modules/govuk-frontend/dist',
+  'node_modules/hmrc-frontend',
   'views'
 ], {
     autoescape: true,
@@ -35,6 +37,15 @@ app.use(express.static('node_modules/govuk-frontend/dist/govuk/'))
 app.use(express.static('node_modules/govuk-frontend/dist/govuk/assets'))
 app.use(express.static('static/'));
 
+app.use((req, res, next) => {
+    env.addGlobal('request', req);
+    next();
+});
+
 app.get('/', function(req, res){ res.render('index.njk'); });
+
+app.get('/login', getLoginForm);
+app.post('/login', postLoginForm);
+app.get('/signout', getLogoutForm);
 
 app.get('*', function(req, res){ res.render('errors/404.njk'); });
