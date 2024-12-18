@@ -3,6 +3,7 @@ import nunjucks from "nunjucks";
 import bodyParser from "body-parser";
 import session from "express-session";
 import { logger } from "./logger";
+import jobRoleMiddleware from './middleware/JobRoleMiddleware';
 import { getAllJobRolesList } from "./controllers/JobRoleController";
 
 const app = express();
@@ -40,7 +41,7 @@ app.get("/", function (req, res) {
 });
 
 
-app.get("/job-roles", getAllJobRolesList )
+app.get("/job-roles",  jobRoleMiddleware, getAllJobRolesList )
 
 app.get("*", function (req, res) {
 	res.render("errors/404.njk");
