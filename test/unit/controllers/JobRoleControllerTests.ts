@@ -3,12 +3,14 @@ import * as JobRoleService from "../../../src/services/JobRoleService";
 import { expect } from "chai";
 import { JobRoleResponse } from "../../../src/models/JobRoleResponse";
 import sinon from "sinon";
+import { dateFormatter } from "../../../src/filters/dateFormatter";
+
 
 const jobRoleResponse: JobRoleResponse = {
     jobRoleId: 1,
     roleName: "Software Engineer",
     location: "Belfast",
-    closingDate: new Date("2024-12-22"),
+    closingDate: 1734393600000,
     capabilityName: "Digital Services",
     bandName: "Senior",
 };
@@ -29,8 +31,13 @@ describe("JobRoleController", function () {
 
             await JobRoleController.getAllJobRolesList(req as any, res as any);
 
+            const formattedJobRoles = jobRoleList.map((jobRole) => ({
+                ...jobRole,
+                closingDate: dateFormatter(jobRole.closingDate)
+            }));
+
             expect(res.render.calledOnce).to.be.true;
-            expect(res.render.calledWith("jobRole/job-roles.njk", { jobRoles: jobRoleList })).to.be.true;
+            expect(res.render.calledWith("jobRole/job-roles.njk", { jobRoles: formattedJobRoles })).to.be.true;
         });
 
         it("should render view with error message when error thrown", async () => {

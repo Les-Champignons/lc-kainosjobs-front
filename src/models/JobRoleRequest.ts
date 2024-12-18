@@ -2,7 +2,7 @@ export type JobRoleRequest = {
     jobRoleId: Number,
     roleName: String,
     location: String,
-    closingDate: Date,
+    closingDate: number,
     capabilityName: String,
     bandName: String
 }

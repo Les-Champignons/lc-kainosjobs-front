@@ -7,9 +7,8 @@ export const getAllJobRolesList = async (req: Request, res: Response): Promise<v
         const jobRoles = await getAllJobRoles();
         const formattedJobRoles = jobRoles.map((jobRole) => ({
             ...jobRole,
-            closingDate: dateFormatter(jobRole.closingDate.getTime()),
+            closingDate: dateFormatter(jobRole.closingDate)
         }));
-        console.log(formattedJobRoles);
         return res.render("jobRole/job-roles.njk", { jobRoles: formattedJobRoles });
     } catch (e) {
         res.locals.errormessage = e.message;

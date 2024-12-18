@@ -10,7 +10,7 @@ const jobRoleRequest: JobRoleRequest = {
 	jobRoleId: 1,
 	roleName: "Software Engineer",
 	location: "Belfast",
-	closingDate: new Date("2024-12-22"),
+	closingDate: 1734393600000,
 	capabilityName: "Digital Services",
 	bandName: "Senior",
 };
@@ -19,7 +19,7 @@ const jobRoleResponse: JobRoleResponse = {
 	jobRoleId: 1,
 	roleName: "Software Engineer",
 	location: "Belfast",
-	closingDate: new Date("2024-12-22"),
+	closingDate: 1734393600000,
 	capabilityName: "Digital Services",
 	bandName: "Senior",
 };
