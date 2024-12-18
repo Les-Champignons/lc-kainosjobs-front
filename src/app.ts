@@ -3,6 +3,7 @@ import nunjucks from "nunjucks";
 import bodyParser from "body-parser";
 import session from "express-session";
 import { logger } from "./logger";
+require('dotenv').config()
 
 const app = express();
 
