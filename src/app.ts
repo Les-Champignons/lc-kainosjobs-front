@@ -39,8 +39,10 @@ app.get("/", function (req, res) {
 	res.render("index.njk");
 });
 
+
+app.get("/job-roles", getAllJobRolesList )
+
 app.get("*", function (req, res) {
 	res.render("errors/404.njk");
 });
 
-app.get("/job-roles", getAllJobRolesList )

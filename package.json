@@ -5,12 +5,11 @@
   "scripts": {
     "start": "tsc && node dist/app.js",
     "dev": "nodemon src/app.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --require ts-node/register 'test/**/*.ts'"
   },
   "author": "",
   "license": "ISC",
   "description": "",
-
   "devDependencies": {
     "@types/chai": "^4.3.14",
     "@types/express": "^5.0.0",
@@ -18,16 +17,16 @@
     "@types/mocha": "^10.0.6",
     "@types/node": "^22.10.2",
     "@types/nunjucks": "^3.2.6",
-    "nodemon": "^3.1.9",
     "@types/selenium-webdriver": "^4.1.22",
     "@types/sinon": "^17.0.3",
-    "ts-node": "^10.9.2",
+    "axios-mock-adapter": "^2.1.0",
     "chai": "^4.3.7",
     "mocha": "^10.7.3",
+    "nodemon": "^3.1.9",
     "selenium-webdriver": "^4.9.0",
-    "sinon": "^17.0.1"
+    "sinon": "^17.0.1",
+    "ts-node": "^10.9.2"
   },
-
   "dependencies": {
     "axios": "^1.7.9",
     "body-parser": "^1.20.3",

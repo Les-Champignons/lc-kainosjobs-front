@@ -1,6 +1,18 @@
 import { Request, Response } from "express";
 import { getAllJobRoles } from "../services/JobRoleService";
+import { dateFormatter } from "../filters/dateFormatter";
 
 export const getAllJobRolesList = async (req: Request, res: Response): Promise<void> => {
-    return res.render('jobRole/viewRoles.njk', { jobRoles: await getAllJobRoles() });
-}
+    try {
+        const jobRoles = await getAllJobRoles();
+        const formattedJobRoles = jobRoles.map((jobRole) => ({
+            ...jobRole,
+            closingDate: dateFormatter(jobRole.closingDate.getTime()),
+        }));
+        console.log(formattedJobRoles);
+        return res.render("jobRole/job-roles.njk", { jobRoles: formattedJobRoles });
+    } catch (e) {
+        res.locals.errormessage = e.message;
+        res.render("jobRole/job-roles.njk");
+    }
+};
