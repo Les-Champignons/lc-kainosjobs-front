@@ -4,6 +4,7 @@ import { expect } from "chai";
 import { JobRoleResponse } from "../../../src/models/JobRoleResponse";
 import { JobRoleRequest } from "../../../src/models/JobRoleRequest";
 import { getAllJobRoles } from "../../../src/services/JobRoleService";
+import { URL } from "../../../src/services/JobRoleService";
 
 const jobRoleRequest: JobRoleRequest = {
 	jobRoleId: 1,
