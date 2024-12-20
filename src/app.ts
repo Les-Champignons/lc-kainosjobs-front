@@ -9,15 +9,15 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-    extended: true
+    extended: true,
 }));
 
 const env = nunjucks.configure([
   'node_modules/govuk-frontend/dist',
-  'views'
+  'views',
 ], {
     autoescape: true,
-    express: app
+    express: app,
 });
 
 app.listen(process.env.port || 3000, () => {
@@ -28,7 +28,7 @@ app.use(session({ secret: process.env.SESSION_SECRET, cookie: { maxAge: parseInt
 
 declare module "express-session" {
     interface SessionData {
-        token: string;
+        token: string,
     }
 }
 

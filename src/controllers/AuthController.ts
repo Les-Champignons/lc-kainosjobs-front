@@ -24,7 +24,7 @@ export const postLoginForm = async (req: express.Request, res: express.Response)
 }
 
 export const getLogoutForm = async (req: express.Request, res: express.Response): Promise<void> => {
-    req.session.token = null;
-
-    return res.redirect('/');
+    req.session.destroy(() => {
+        return res.redirect('/');
+    });
 }
