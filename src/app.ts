@@ -3,6 +3,7 @@ import nunjucks from "nunjucks";
 import bodyParser from "body-parser";
 import session from "express-session";
 import { logger } from "./logger";
+import { getJobForm } from "../controllers/ApplyFormController";
 require('dotenv').config()
 
 const app = express();
@@ -32,10 +33,12 @@ declare module "express-session" {
     }
 }
 
-app.use(express.static('node_modules/govuk-frontend/dist/govuk/'))
-app.use(express.static('node_modules/govuk-frontend/dist/govuk/assets'))
+app.use(express.static('node_modules/govuk-frontend/dist/govuk/'));
+app.use(express.static('node_modules/govuk-frontend/dist/govuk/assets'));
 app.use(express.static('static/'));
 
 app.get('/', function(req, res){ res.render('index.njk'); });
+
+app.get('/apply-job', getJobForm);
 
 app.get('*', function(req, res){ res.render('errors/404.njk'); });
