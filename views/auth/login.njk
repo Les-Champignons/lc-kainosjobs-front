@@ -3,6 +3,7 @@
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/password-input/macro.njk" import govukPasswordInput %}
 {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
 
 {% block content %}
 
@@ -24,32 +25,41 @@
 
             <form action="/login" class="form" method="post">
 
+            {% call govukFieldset({
+            legend: {
+                text: "Details",
+                classes: "govuk-fieldset__legend--m",
+                isPageHeading: true
+            }
+            }) %}
   
-            {{ govukInput({
-                id: "email",
-                name: "email",
-                classes: "govuk-input--width-20",
-                errorMessage: {
-                    text: "Enter a valid email and password."
-                } if errormessage else false,
-                label: {
-                    text: "Email"
-                }
-            }) }}
+                {{ govukInput({
+                    id: "email",
+                    name: "email",
+                    classes: "govuk-input--width-20",
+                    errorMessage: {
+                        text: "Enter a valid email and password."
+                    } if errormessage else false,
+                    label: {
+                        text: "Email"
+                    }
+                }) }}
 
-            {{ govukPasswordInput({
-                label: {
-                text: "Password"
-                },
-                id: "password",
-                name: "password",
-                classes: "govuk-input--width-20"
-            }) }}
+                {{ govukPasswordInput({
+                    label: {
+                    text: "Password"
+                    },
+                    id: "password",
+                    name: "password",
+                    classes: "govuk-input--width-20"
+                }) }}
 
-            {{ govukButton({
-                text: "Sign in",
-                preventDoubleClick: true
-            }) }}
+                {{ govukButton({
+                    text: "Sign in",
+                    preventDoubleClick: true
+                }) }}
+
+            {% endcall %}
 
             </form>
 
