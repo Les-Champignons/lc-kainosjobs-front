@@ -1,11 +1,11 @@
-import { User } from "./User"
+import { User } from "./User";
 
 export enum UserRole {
-    User = 0,
-    Admin = 1,
+	User = 0,
+	Admin = 1,
 }
 
 export type JwtToken = {
-    Role: UserRole,
-    User: User,
-}
+	Role: UserRole;
+	User: User;
+};
