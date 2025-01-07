@@ -1,10 +1,14 @@
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 import { expect } from "chai";
+import chaiAsPromised from "chai-as-promised";
 import { JobRoleResponse } from "../../../src/models/JobRoleResponse";
 import { JobRoleRequest } from "../../../src/models/JobRoleRequest";
 import { getAllJobRoles } from "../../../src/services/JobRoleService";
 import { URL } from "../../../src/services/JobRoleService";
+
+chai.use(chaiAsPromised);
+
 
 const jobRoleData = {
 	jobRoleId: 1,
@@ -35,13 +39,9 @@ describe("JobRoleService", function () {
 		it("should throw exception when 500 error returned from axios", async () => {
 			mock.onGet(URL).reply(500);
 
-			try {
-				await getAllJobRoles();
-			} catch (e) {
-				expect(e.message).to.equal("Failed to get job roles");
-				return;
-			}
-			throw new Error("Test failed");
-		});
+			await getAllJobRoles().catch((error) => {
+				expect(error.message).to.equal("Failed to get job roles");
+			});
+	});
 	});
 });
