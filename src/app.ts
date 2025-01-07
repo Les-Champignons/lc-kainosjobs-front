@@ -4,6 +4,8 @@ import bodyParser from "body-parser";
 import session from "express-session";
 import { logger } from "./logger";
 import { getLoginForm, getLogoutForm, postLoginForm } from "./controllers/AuthController";
+import jobRoleMiddleware from "./middleware/JobRoleMiddleware";
+import { getAllJobRolesList } from "./controllers/JobRoleController";
 
 const app = express();
 
@@ -21,7 +23,7 @@ const env = nunjucks.configure([
 });
 
 app.listen(process.env.port || 3000, () => {
-    logger.info(`Application listening on port ${process.env.port || 3000}`);
+	logger.info(`Application listening on port ${process.env.port || 3000}`);
 });
 
 app.use(session({ secret: process.env.SESSION_SECRET, cookie: { maxAge: parseInt(process.env.SESSION_MAX_AGE) || 28800000 } }));
@@ -32,9 +34,9 @@ declare module "express-session" {
     }
 }
 
-app.use(express.static('node_modules/govuk-frontend/dist/govuk/'))
-app.use(express.static('node_modules/govuk-frontend/dist/govuk/assets'))
-app.use(express.static('static/'));
+app.use(express.static("node_modules/govuk-frontend/dist/govuk/"));
+app.use(express.static("node_modules/govuk-frontend/dist/govuk/assets"));
+app.use(express.static("static/"));
 
 app.use((req, res, next) => {
     env.addGlobal('request', req);
@@ -46,5 +48,7 @@ app.get('/', function(req, res){ res.render('index.njk'); });
 app.get('/login', getLoginForm);
 app.post('/login', postLoginForm);
 app.get('/signout', getLogoutForm);
+
+app.get("/job-roles", jobRoleMiddleware, getAllJobRolesList);
 
 app.get('*', function(req, res){ res.render('errors/404.njk'); });
