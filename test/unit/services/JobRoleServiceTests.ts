@@ -9,7 +9,6 @@ import { URL } from "../../../src/services/JobRoleService";
 
 chai.use(chaiAsPromised);
 
-
 const jobRoleData = {
 	jobRoleId: 1,
 	roleName: "Software Engineer",
@@ -42,6 +41,6 @@ describe("JobRoleService", function () {
 			await getAllJobRoles().catch((error) => {
 				expect(error.message).to.equal("Failed to get job roles");
 			});
-	});
+		});
 	});
 });
