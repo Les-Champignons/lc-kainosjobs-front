@@ -39,6 +39,6 @@ app.use(express.static('static/'));
 
 app.get('/', function(req, res){ res.render('index.njk'); });
 
-app.get('/apply-job', getJobForm);
+app.get('/job-form', getJobForm);
 
 app.get('*', function(req, res){ res.render('errors/404.njk'); });
