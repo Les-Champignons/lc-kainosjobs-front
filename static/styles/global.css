@@ -17,3 +17,14 @@
 .govuk-footer__copyright-logo {
 	background-image: none !important;
 }
+
+.govuk-header__content {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.hmrc-sign-out-nav {
+	margin-bottom: 10px;
+}
