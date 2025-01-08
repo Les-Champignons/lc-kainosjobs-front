@@ -14,49 +14,43 @@
                 href: "/job-roles"
             },
             {
-                text: "Job Roles",
+                text: "Job Role Information",
                 href: "/job-role-information"
             }
         ]
         }) }}
 {% endblock %}
-
 {% block content %}
-  <h1 class="govuk-heading-xl">Job Role Information</h1>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-xl">Job Role Information</h1>
 
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-        <table class="govuk-table">
-        <thead class="govuk-table__head">
-            <tr class="govuk-table__row">
-            <th scope="col" class="govuk-table__header">Role Name</th>
-            <th scope="col" class="govuk-table__header">Band</th>
-            <th scope="col" class="govuk-table__header">Capabilty</th>
-            </tr>
-{# add description, responsibilities #}
-        </thead>
-        <tbody class="govuk-table__body">
-            {% set roleName = jobRoleDetails.roleName %}
-            {% set band = jobRoleDetails.bandName %}
-            {% set capability = jobRoleDetails.capabilityName %}
+            <h1 class="govuk-heading-xl">{{  jobRoleDetails.jobRoleDetailedParameters.roleName }}</h1>
+            <p class="govuk-body">Location: {{  jobRoleDetails.jobRoleDetailedParameters.location }}</p>
+            <p class="govuk-body">Number of Open Positions: {{  jobRoleDetails.jobRoleDetailedParameters.numberOfOpenPositions }}</p>
+            <p class="govuk-body">SharePoint URL: <a href="{{  jobRoleDetails.jobRoleDetailedParameters.sharepointUrl }}" class="govuk-link">{{  jobRoleDetails.jobRoleDetailedParameters.sharepointUrl }}</a>
+            </p>
 
-            <tr class="govuk-table__row">
-                <td class="govuk-table__cell"><a href="/job-roles/{{jobRoleDetails.jobRoleId}}">{{ roleName }}</td>
-                <td class="govuk-table__cell">{{ band }}</td>
-                <td class="govuk-table__cell">{{ capability }}</td>
-            </tr>
-        </tbody>
-        </table>
+            <h2 class="govuk-heading-l">Description</h2>
+            <p class="govuk-body">{{ jobRoleDetails.jobRoleDetailedParameters.description }}</p>
+            <h2 class="govuk-heading-l">Responsibilities</h2>
+            <p class="govuk-body">{{ jobRoleDetails.jobRoleDetailedParameters.responsibilities }}</p>
+
+            {{ govukButton({
+        text: "Apply Now",
+        href: "/apply"
+    }) }}
+        </div>
+
+        <div class="govuk-grid-column-one-third">
+            <h2 class="govuk-heading-m">Related content</h2>
+
+            <ul class="govuk-list">
+                <li>
+                    <a class="govuk-link" href="/job-roles/create">Create a job role</a>
+                </li>
+            </ul>
+
+        </div>
     </div>
-    <div class="govuk-grid-column-one-third">
-        <h2 class="govuk-heading-m">Related content</h2>
-
-        <ul class="govuk-list">
-            <li>
-                <a class="govuk-link" href="/job-roles/create">Create a job role</a>
-            </li>
-          </ul>
-
-      </div>
-  </div>
 {% endblock %}
