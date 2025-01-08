@@ -5,15 +5,16 @@
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
         <h1 class="govuk-heading-xl">Upload your CV</h1>
-        <input type="file"></input>
+        <p class="govuk-body"><b>Choose file</b> from your device or <b>Drag and Drop</b></p>
         
-        {% if number_of_positions > 0 and status == 'open'%}
-            {{ govukButton({
-            text: "Upload",
-            href: "/",
-            isStartButton: true
-            }) }}
-        {% endif %}
+        <form action="/job-form" class="form" method="post" enctype="multipart/form-data">
+            <input type="file" name="cv"></input>
+            {% if number_of_positions > 0 and status == 'open'%}
+                {{ govukButton({
+                text: "Upload"
+                }) }}
+            {% endif %}
+        </form>
     </div>
 </div>
 
