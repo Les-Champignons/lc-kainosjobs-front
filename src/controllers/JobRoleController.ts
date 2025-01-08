@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
-import { getAllJobRoles } from "../services/JobRoleService";
+import { getAllJobRoles, getDetailedJobRole } from "../services/JobRoleService";
 import { dateFormatter } from "../filters/dateFormatter";
+import { JobRoleDetailedResponse } from "../models/JobRoleDetailedResponse";
 
 interface JobRole {
 	jobRoleId: Number;
@@ -9,6 +10,16 @@ interface JobRole {
 	closingDate: number;
 	capabilityName: String;
 	bandName: String;
+}
+
+interface JobRoleDetail {
+	description: string;
+	responsibilities: string;
+	sharepointUrl: string;
+	roleName: string;
+	location: string;
+	closingDate: Date;
+	numberOfOpenPositions: number;
 }
 
 export const getAllJobRolesList = async (req: Request, res: Response): Promise<void> => {
@@ -22,5 +33,16 @@ export const getAllJobRolesList = async (req: Request, res: Response): Promise<v
 	} catch (e) {
 		res.locals.errormessage = e.message;
 		res.render("jobRole/job-roles.njk");
+	}
+};
+
+
+export const getDetailedJobRoleController = async (req: Request, res: Response): Promise<void> => {
+	try {
+		const jobRoleDetails: JobRoleDetailedResponse[] = await getDetailedJobRole();
+		return res.render("jobRole/job-role-information.njk", { jobRoleDetails });
+	} catch (e) {
+		res.locals.errormessage = e.message;
+		res.render("jobRole/job-role-information.njk");
 	}
 };

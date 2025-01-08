@@ -1,0 +1,64 @@
+{% extends "templates/layout.njk" %}
+
+{% block beforeContent %}
+    {{ super() }}
+
+    {{ govukBreadcrumbs({
+        items: [
+            {
+                text: "Home",
+                href: "/"
+            },
+            {
+                text: "Job Roles",
+                href: "/job-roles"
+            }
+                        {
+                text: "Job Roles",
+                href: "/job-role-information"
+            }
+        ]
+        }) }}
+{% endblock %}
+
+{% block content %}
+  <h1 class="govuk-heading-xl">Job Role Information</h1>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <table class="govuk-table">
+        <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Role Name</th>
+            <th scope="col" class="govuk-table__header">Band</th>
+            <th scope="col" class="govuk-table__header">Capabilty</th>
+            </tr>
+{# add description, responsibilities #}
+        </thead>
+        <tbody class="govuk-table__body">
+            {% for jobRole in jobRoles %}
+            {% set roleName = jobRole.roleName %}
+            {% set band = jobRole.bandName %}
+            {% set capability = jobRole.capabilityName %}
+
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell"><a href="/job-roles/{{jobRole.jobRoleId}}">{{ roleName }}</td>
+                <td class="govuk-table__cell">{{ location }}</td>
+                <td class="govuk-table__cell">{{ closingDate }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    </div>
+    <div class="govuk-grid-column-one-third">
+        <h2 class="govuk-heading-m">Related content</h2>
+
+        <ul class="govuk-list">
+            <li>
+                <a class="govuk-link" href="/job-roles/create">Create a job role</a>
+            </li>
+          </ul>
+
+      </div>
+  </div>
+{% endblock %}

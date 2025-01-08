@@ -1,13 +1,10 @@
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 import { expect } from "chai";
-import chaiAsPromised from "chai-as-promised";
 import { JobRoleResponse } from "../../../src/models/JobRoleResponse";
 import { JobRoleRequest } from "../../../src/models/JobRoleRequest";
 import { getAllJobRoles } from "../../../src/services/JobRoleService";
 import { URL } from "../../../src/services/JobRoleService";
-
-chai.use(chaiAsPromised);
 
 const jobRoleData = {
 	jobRoleId: 1,
