@@ -43,7 +43,7 @@ app.get("/", function (req, res) {
 
 app.get("/job-roles", jobRoleMiddleware, getAllJobRolesList);
 
-app.get("/job-role-information", getDetailedJobRoleController);
+app.get("/job-roles/:id", jobRoleMiddleware, getDetailedJobRoleController);
 
 app.get("*", function (req, res) {
 	res.render("errors/404.njk");

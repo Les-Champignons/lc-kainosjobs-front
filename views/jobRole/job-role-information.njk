@@ -12,8 +12,8 @@
             {
                 text: "Job Roles",
                 href: "/job-roles"
-            }
-                        {
+            },
+            {
                 text: "Job Roles",
                 href: "/job-role-information"
             }
@@ -36,17 +36,15 @@
 {# add description, responsibilities #}
         </thead>
         <tbody class="govuk-table__body">
-            {% for jobRole in jobRoles %}
-            {% set roleName = jobRole.roleName %}
-            {% set band = jobRole.bandName %}
-            {% set capability = jobRole.capabilityName %}
+            {% set roleName = jobRoleDetails.roleName %}
+            {% set band = jobRoleDetails.bandName %}
+            {% set capability = jobRoleDetails.capabilityName %}
 
             <tr class="govuk-table__row">
-                <td class="govuk-table__cell"><a href="/job-roles/{{jobRole.jobRoleId}}">{{ roleName }}</td>
-                <td class="govuk-table__cell">{{ location }}</td>
-                <td class="govuk-table__cell">{{ closingDate }}</td>
+                <td class="govuk-table__cell"><a href="/job-roles/{{jobRoleDetails.jobRoleId}}">{{ roleName }}</td>
+                <td class="govuk-table__cell">{{ band }}</td>
+                <td class="govuk-table__cell">{{ capability }}</td>
             </tr>
-            {% endfor %}
         </tbody>
         </table>
     </div>
