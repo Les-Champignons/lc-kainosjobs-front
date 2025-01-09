@@ -1,15 +1,21 @@
 import { expect } from "chai";
 import sinon from "sinon";
-import axios from "axios";
+import axios, { AxiosError, InternalAxiosRequestConfig } from "axios";
 import MockAdapter from "axios-mock-adapter";
 import { getToken } from "../../../src/services/AuthService";
 import { LoginRequest } from "../../../src/models/LoginRequest";
 
-const mockAxios = new MockAdapter(axios);
 
 describe("AuthService", () => {
+  let mockAxios;
+
+  beforeEach(() => {
+    process.env.API_URL = "http://localhost:8080/api"
+    mockAxios = new MockAdapter(axios);
+  });
+
   afterEach(() => {
-    mockAxios.reset();
+    mockAxios.restore();
   });
 
   it("should return a token when API call succeeds", async () => {
@@ -25,12 +31,14 @@ describe("AuthService", () => {
   it("should throw an error when API call fails", async () => {
     const loginRequest = { email: "test@example.com", password: "password" };
     const mockError = "Invalid credentials";
-
-    mockAxios.onPost(`${process.env.API_URL}/auth/login`).reply(400, mockError);
+    const config = {url: "http://localhost:8080/api"} as InternalAxiosRequestConfig
+    const errorResponse = new AxiosError("Invalid Creds", "lol", config, loginRequest)
+    mockAxios.onPost(`http://localhost:8080/api/auth/login`).reply(400, errorResponse);
 
     try {
       await getToken(loginRequest);
     } catch (e) {
+      console.log(e)
       expect(e.message).to.equal(mockError);
     }
   });
