@@ -9,9 +9,6 @@ export const URL: string = "job-roles";
 export const getAllJobRoles = async (): Promise<JobRoleResponse[]> => {
 	try {
 		const response: AxiosResponse = await axios.get(URL);
-
-		console.log("TEMP LOG TEST: " + response.data);
-
 		return response.data;
 	} catch (e) {
 		throw new Error("Failed to get job roles");
@@ -21,11 +18,8 @@ export const getAllJobRoles = async (): Promise<JobRoleResponse[]> => {
 export const getDetailedJobRole = async (id: string): Promise<JobRoleDetailedResponse[]> => {
 	try {
 		const response: AxiosResponse = await axios.get(URL + "/" + id);
-		console.log(response.data);
-		console.log("test for data being passed in")
 		return response.data;
 	} catch (e) {
-		console.log("ERROR IS BEING THROWN IN SERVICE")
 		throw new Error("Failed to get job role detail");
 	}
 };

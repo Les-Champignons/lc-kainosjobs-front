@@ -4,6 +4,6 @@ export type JobRoleDetailedParameters = {
 	sharepointUrl: String;
 	roleName: String;
 	location: String;
-	closingDate: Date;
+	closingDate: number;
 	numberOfOpenPositions: Number;
 };
