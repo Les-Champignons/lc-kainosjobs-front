@@ -1,0 +1,56 @@
+{% extends "templates/layout.njk" %}
+
+{% block beforeContent %}
+    {{ super() }}
+
+    {{ govukBreadcrumbs({
+        items: [
+            {
+                text: "Home",
+                href: "/"
+            },
+            {
+                text: "Job Roles",
+                href: "/job-roles"
+            },
+            {
+                text: "Job Role Information"            
+            }
+        ]
+        }) }}
+{% endblock %}
+{% block content %}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-l govuk-!-static-padding-bottom-4">{{  jobRoleDetails.jobRoleDetailedParameters.roleName }} - {{  jobRoleDetails.capabilityName }}</h1>
+
+            <h2 class="govuk-heading-m govuk-!-static-padding-bottom-3">Job Details</h2>
+            <p class="govuk-body">Location: {{  jobRoleDetails.jobRoleDetailedParameters.location }}</p>
+            <p class="govuk-body">Closing Date: {{  jobRoleDetails.jobRoleDetailedParameters.closingDate }}</p>
+            <p class="govuk-body">Number of Open Positions: {{  jobRoleDetails.jobRoleDetailedParameters.numberOfOpenPositions }}</p>
+            <p class="govuk-body">Band: {{  jobRoleDetails.bandName }}</p>
+            <p class="govuk-body">SharePoint URL: <a href="{{  jobRoleDetails.jobRoleDetailedParameters.sharepointUrl }}" class="govuk-link">{{  jobRoleDetails.jobRoleDetailedParameters.sharepointUrl }}</a>
+            </p>
+
+            <h2 class="govuk-heading-m govuk-!-static-padding-bottom-3 govuk-!-static-padding-top-3">Full Job Description</h2>
+            <p class="govuk-body">{{ jobRoleDetails.jobRoleDetailedParameters.description }}</p>
+            <p class="govuk-body govuk-!-static-padding-bottom-3">{{ jobRoleDetails.jobRoleDetailedParameters.responsibilities }}</p>
+
+            {{ govukButton({
+        text: "Apply Now",
+        href: "/apply"
+    }) }}
+        </div>
+
+        <div class="govuk-grid-column-one-third">
+            <h2 class="govuk-heading-m">Related content</h2>
+
+            <ul class="govuk-list">
+                <li>
+                    <a class="govuk-link" href="/job-roles/create">Create a job role</a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+{% endblock %}

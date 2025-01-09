@@ -6,6 +6,7 @@ import { logger } from "./logger";
 import { getLoginForm, getLogoutForm, postLoginForm } from "./controllers/AuthController";
 import jobRoleMiddleware from "./middleware/JobRoleMiddleware";
 import { getAllJobRolesList } from "./controllers/JobRoleController";
+import { getDetailedJobRoleController } from "./controllers/JobRoleController";
 
 const app = express();
 
@@ -51,6 +52,8 @@ app.post("/login", postLoginForm);
 app.get("/signout", getLogoutForm);
 
 app.get("/job-roles", jobRoleMiddleware, getAllJobRolesList);
+
+app.get("/job-roles/:id", jobRoleMiddleware, getDetailedJobRoleController);
 
 app.get("*", function (req, res) {
 	res.render("errors/404.njk");
