@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
-import { getAllJobRoles, getDetailedJobRole } from "../services/JobRoleService";
+import { getAllJobRoles } from "../services/JobRoleService";
+import { getDetailedJobRole } from "../services/JobRoleService";
 import { dateFormatter } from "../filters/dateFormatter";
 
 interface JobRole {
@@ -11,6 +12,23 @@ interface JobRole {
 	bandName: String;
 }
 
+interface JobRoleDetailedParameters {
+	description: String;
+	responsibilities: String;
+	sharepointUrl: String;
+	roleName: String;
+	location: String;
+	closingDate: number;
+	numberOfOpenPositions: Number;
+};
+
+interface JobRoleDetailedResponse {
+	jobRoleId: Number;
+	roleName: String;
+	bandName: String;
+	capabilityName: String;
+	jobRoleDetailedParameters: JobRoleDetailedParameters
+};
 
 
 export const getAllJobRolesList = async (req: Request, res: Response): Promise<void> => {
@@ -27,14 +45,20 @@ export const getAllJobRolesList = async (req: Request, res: Response): Promise<v
 	}
 };
 
-
 export const getDetailedJobRoleController = async (req: Request, res: Response): Promise<void> => {
 	try {
-		res.render("jobRole/job-role-information.njk", { jobRoleDetails: await getDetailedJobRole(req.params.id)});
+		const jobRoleId = req.params.id;
+		const jobRoleDetails: JobRoleDetailedResponse = await getDetailedJobRole(jobRoleId);
+		const formattedJobRoleDetails = {
+			...jobRoleDetails,
+			jobRoleDetailedParameters: {
+				...jobRoleDetails.jobRoleDetailedParameters,
+				closingDate: dateFormatter(jobRoleDetails.jobRoleDetailedParameters.closingDate),
+			},
+		};
+		return res.render("jobRole/job-role-information.njk", { jobRoleDetails: formattedJobRoleDetails });
 	} catch (e) {
 		res.locals.errormessage = e.message;
 		res.render("jobRole/job-role-information.njk");
 	}
 };
-
-

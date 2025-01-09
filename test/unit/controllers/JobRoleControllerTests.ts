@@ -76,7 +76,7 @@ describe("JobRoleController", function () {
 
 	describe("getDetailedJobRoleController", function () {
 		it("should render view and return job information", async () => {
-			const jobRoleDetails = [jobRoleDetailedResponse];
+			const jobRoleDetails = jobRoleDetailedResponse;
 
 			sinon.stub(JobRoleService, "getDetailedJobRole").resolves(jobRoleDetails);
 
@@ -85,8 +85,16 @@ describe("JobRoleController", function () {
 
 			await JobRoleController.getDetailedJobRoleController(req as any, res as any);
 
+			const formattedJobRoleDetails = {
+				...jobRoleDetails,
+				jobRoleDetailedParameters: {
+					...jobRoleDetails.jobRoleDetailedParameters,
+					closingDate: dateFormatter(jobRoleDetails.jobRoleDetailedParameters.closingDate),
+				},
+			};
+
 			expect(res.render.calledOnce).to.be.true;
-			expect(res.render.calledWith("jobRole/job-role-information.njk", { jobRoleDetails })).to.be.true;
+			expect(res.render.calledWith("jobRole/job-role-information.njk", { jobRoleDetails: formattedJobRoleDetails })).to.be.true;
 		});
 
 		it("should render view with error message when error thrown", async () => {
