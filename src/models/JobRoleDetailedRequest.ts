@@ -5,5 +5,5 @@ export type JobRoleDetailedRequest = {
 	roleName: String;
 	bandName: String;
 	capabilityName: String;
-	jobRoleDetailedParameters: JobRoleDetailedParameters
+	jobRoleDetailedParameters: JobRoleDetailedParameters;
 };

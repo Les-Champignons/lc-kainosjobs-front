@@ -20,16 +20,15 @@ interface JobRoleDetailedParameters {
 	location: String;
 	closingDate: number;
 	numberOfOpenPositions: Number;
-};
+}
 
 interface JobRoleDetailedResponse {
 	jobRoleId: Number;
 	roleName: String;
 	bandName: String;
 	capabilityName: String;
-	jobRoleDetailedParameters: JobRoleDetailedParameters
-};
-
+	jobRoleDetailedParameters: JobRoleDetailedParameters;
+}
 
 export const getAllJobRolesList = async (req: Request, res: Response): Promise<void> => {
 	try {
