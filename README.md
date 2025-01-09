@@ -1,19 +1,21 @@
 # Kainos Jobs
 
 Kainos Jobs is an online job application platform designed to serve both Kainos recruitment admins and job applicants. Recruitment admins can retrieve and update job roles and their relevant information, while applicants can browse and apply for available positions.
+
 ## Table of Contents
+
 - Getting Started
 - Front-End
-  - Installation
-  - Running the Application
-  - Testing
-  - Linting
+    - Installation
+    - Running the Application
+    - Testing
+    - Linting
 - Back-End
-  - Installation
-  - Database Initialization
-  - Running the Application
-  - Testing
-  - Linting
+    - Installation
+    - Database Initialization
+    - Running the Application
+    - Testing
+    - Linting
 
 ## Getting Started
 
