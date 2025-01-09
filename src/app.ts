@@ -3,7 +3,6 @@ import nunjucks from "nunjucks";
 import bodyParser from "body-parser";
 import session from "express-session";
 import { logger } from "./logger";
-import { getLoginForm, getLogoutForm, postLoginForm } from "./controllers/AuthController";
 import jobRoleMiddleware from "./middleware/JobRoleMiddleware";
 import { getAllJobRolesList } from "./controllers/JobRoleController";
 
@@ -37,18 +36,9 @@ app.use(express.static("node_modules/govuk-frontend/dist/govuk/"));
 app.use(express.static("node_modules/govuk-frontend/dist/govuk/assets"));
 app.use(express.static("static/"));
 
-app.use((req, res, next) => {
-	env.addGlobal("request", req);
-	next();
-});
-
 app.get("/", function (req, res) {
 	res.render("index.njk");
 });
-
-app.get("/login", getLoginForm);
-app.post("/login", postLoginForm);
-app.get("/signout", getLogoutForm);
 
 app.get("/job-roles", jobRoleMiddleware, getAllJobRolesList);
 

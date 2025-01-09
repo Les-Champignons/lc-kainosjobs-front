@@ -23,27 +23,12 @@
 {% endblock %}
 
 {% block header %}
-    {% if request.session.token %}
-        {{ govukHeader({
-            homepageUrl: "/",
-            serviceName: "Kainos Jobs",
-            serviceUrl: "/",
-            classes: "govuk-header--full-width-border",
-            navigation: [
-                {
-                    text: "Sign out",
-                    href: "/signout"
-                }
-            ]
-        }) }}
-    {% else %}
-        {{ govukHeader({
-            homepageUrl: "/",
-            serviceName: "Kainos Jobs",
-            serviceUrl: "/",
-            classes: "govuk-header--full-width-border"
-        }) }}
-    {% endif %}
+    {{ govukHeader({
+        homepageUrl: "/",
+        serviceName: "Kainos Jobs",
+        serviceUrl: "/",
+        classes: "govuk-header--full-width-border"
+    }) }}
     {{ govukServiceNavigation({
         navigation: [
         ]
