@@ -7,8 +7,6 @@ import { JobRoleRequest } from "../../../src/models/JobRoleRequest";
 import { getAllJobRoles } from "../../../src/services/JobRoleService";
 import { URL } from "../../../src/services/JobRoleService";
 
-chai.use(chaiAsPromised);
-
 const jobRoleData = {
 	jobRoleId: 1,
 	roleName: "Software Engineer",
