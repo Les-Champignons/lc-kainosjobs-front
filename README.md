@@ -92,7 +92,7 @@ export API_URL=""
 To run migrations to the MySQL server using Maven, use the following command:
 
 ```bash
-mvn migrate
+mvn flyway:migrate
 ```
 
 ### Running the Application
