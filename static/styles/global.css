@@ -1,19 +1,30 @@
 * {
-    font-family: 'Galano Grotesque', sans-serif !important;
+	font-family: "Galano Grotesque", sans-serif !important;
 }
 
 .govuk-header__logo svg {
-    display: none;
+	display: none;
 }
-  
+
 .govuk-header__logo {
-    background-image: url('/images/Kainos-alt-transparent.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    width: 150px;
+	background-image: url("/images/Kainos-alt-transparent.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 150px;
 }
 
 .govuk-footer__copyright-logo {
-    background-image: none !important;
+	background-image: none !important;
+}
+
+.govuk-header__content {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.hmrc-sign-out-nav {
+	margin-bottom: 10px;
 }
