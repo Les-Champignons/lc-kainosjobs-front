@@ -3,7 +3,7 @@ import nunjucks from "nunjucks";
 import bodyParser from "body-parser";
 import session from "express-session";
 import { logger } from "./logger";
-import { getJobForm, postJobForm } from "../controllers/ApplyFormController";
+import { getJobForm, postJobForm } from "./controllers/ApplyFormController";
 import multer from "multer";
 import multerS3 from 'multer-s3';
 import { S3Client } from "@aws-sdk/client-s3";
@@ -65,6 +65,6 @@ app.use(express.static('static/'));
 app.get('/', function(req, res){ res.render('index.njk'); });
 
 app.get('/job-form', getJobForm);
-app.post('/job-form', upload.single('cv') ,postJobForm);
+app.post('/job-form', upload.single('cv'), postJobForm);
 
 app.get('*', function(req, res){ res.render('errors/404.njk'); });
