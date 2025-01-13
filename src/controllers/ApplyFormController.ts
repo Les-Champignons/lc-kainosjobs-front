@@ -4,5 +4,4 @@ export const getJobForm = async (req: express.Request, res: express.Response): P
 	res.render("jobRole/job-form.njk");
 };
 
-export const postJobForm = async (req: express.Request, res: express.Response): Promise<void> => {
-};
+export const postJobForm = async (req: express.Request, res: express.Response): Promise<void> => {};
