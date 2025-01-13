@@ -1,0 +1,14 @@
+{% macro govukButtonWithOnclick(params) %}
+    <button 
+        class="govuk-button" 
+        data-module="govuk-button"
+        {% if params.href %} 
+            href="{{ params.href }}" 
+        {% endif %}
+        {% if params.onclick %} 
+            onclick="{{ params.onclick }}" 
+        {% endif %}
+        type="button">
+        {{ params.text }}
+    </button>
+{% endmacro %}
