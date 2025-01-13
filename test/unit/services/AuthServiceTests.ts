@@ -28,12 +28,12 @@ describe("AuthService", () => {
     expect(result).to.equal(mockToken);
   });
 
-  it("should throw an error when API call fails", async () => {
+  it("should throw an error when invalid credentials", async () => {
     const loginRequest = { email: "test@example.com", password: "password" };
     const mockError = "Invalid credentials";
-    const config = {url: "http://localhost:8080/api"} as InternalAxiosRequestConfig
-    const errorResponse = new AxiosError("Invalid Creds", "lol", config, loginRequest)
-    mockAxios.onPost(`http://localhost:8080/api/auth/login`).reply(400, errorResponse);
+    const config = {url: `${process.env.API_URL}/auth/login`} as InternalAxiosRequestConfig
+    const errorResponse = new AxiosError("Invalid credentials", "lol", config, loginRequest)
+    mockAxios.onPost(`${process.env.API_URL}/auth/login`).reply(400, errorResponse);
 
     try {
       await getToken(loginRequest);
