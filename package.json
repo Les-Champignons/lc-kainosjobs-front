@@ -5,17 +5,23 @@
 	"scripts": {
 		"start": "tsc && node dist/app.js",
 		"dev": "nodemon src/app.ts",
-		"test": "mocha --require ts-node/register 'test/**/*.ts'"
+		"test": "mocha --require ts-node/register 'test/**/*.ts'",
+		"test-ui": "mocha --require ts-node/register --timeout 10000 test/ui/**/*.ts"
 	},
 	"author": "",
 	"license": "ISC",
 	"description": "",
 	"devDependencies": {
+		"@types/chai": "^5.0.1",
 		"@types/express": "^5.0.0",
 		"@types/express-session": "^1.18.1",
 		"@types/node": "^22.10.2",
 		"@types/nunjucks": "^3.2.6",
+		"@types/selenium-webdriver": "^4.1.22",
+		"chai": "^4.3.7",
+		"mocha": "^11.0.1",
 		"nodemon": "^3.1.9",
+		"selenium-webdriver": "^4.9.0",
 		"ts-node": "^10.9.2"
 	},
 	"dependencies": {
