@@ -5,5 +5,4 @@ export const getJobForm = async (req: express.Request, res: express.Response): P
 };
 
 export const postJobForm = async (req: express.Request, res: express.Response): Promise<void> => {
-	console.log(req.file);
 };
