@@ -7,6 +7,7 @@ import { getLoginForm, getLogoutForm, postLoginForm } from "./controllers/AuthCo
 import jobRoleMiddleware from "./middleware/JobRoleMiddleware";
 import { getAllJobRolesList } from "./controllers/JobRoleController";
 import { getDetailedJobRoleController } from "./controllers/JobRoleController";
+require("dotenv").config();
 
 const app = express();
 
@@ -26,7 +27,7 @@ app.listen(process.env.port || 3000, () => {
 	logger.info(`Application listening on port ${process.env.port || 3000}`);
 });
 
-app.use(session({ secret: process.env.SESSION_SECRET, cookie: { maxAge: parseInt(process.env.SESSION_MAX_AGE) || 28800000 } }));
+app.use(session({ secret: process.env.SESSION_SECRET, saveUninitialized: true, cookie: { maxAge: parseInt(process.env.SESSION_MAX_AGE) || 28800000 } }));
 
 declare module "express-session" {
 	interface SessionData {

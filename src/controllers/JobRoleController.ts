@@ -2,6 +2,9 @@ import { Request, Response } from "express";
 import { getAllJobRoles } from "../services/JobRoleService";
 import { getDetailedJobRole } from "../services/JobRoleService";
 import { dateFormatter } from "../filters/dateFormatter";
+import { JwtToken, UserRole } from "../models/JwtToken";
+import { jwtDecode } from "jwt-decode";
+
 
 interface JobRole {
 	jobRoleId: Number;
@@ -55,7 +58,9 @@ export const getDetailedJobRoleController = async (req: Request, res: Response):
 				closingDate: dateFormatter(jobRoleDetails.jobRoleDetailedParameters.closingDate),
 			},
 		};
-		return res.render("jobRole/job-role-information.njk", { jobRoleDetails: formattedJobRoleDetails });
+
+		const decodedToken: JwtToken = jwtDecode(req.session.token);
+		return res.render("jobRole/job-role-information.njk", { jobRoleDetails: formattedJobRoleDetails, decodedToken });
 	} catch (e) {
 		res.locals.errormessage = e.message;
 		res.render("jobRole/job-role-information.njk");
