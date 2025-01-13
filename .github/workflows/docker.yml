@@ -28,8 +28,8 @@ jobs:
       env:
         API_URL: ${{ secrets.API_URL }}
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: lc-kainos-jobs-front
-        IMAGE_TAG: lc-kainos-jobs-front
+        ECR_REPOSITORY: lc-kainosjobs-front
+        IMAGE_TAG: lc-kainosjobs-front
       run: |
         docker build --build-arg API_URL=${API_URL} -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
