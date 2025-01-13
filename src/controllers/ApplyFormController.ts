@@ -5,5 +5,4 @@ export const getJobForm = async (req: express.Request, res: express.Response): P
 	res.render("jobRole/job-form.njk", { number_of_positions: 50, status: "open" });
 };
 
-export const postJobForm = async (req: express.Request, res: express.Response): Promise<void> => {
-};
+export const postJobForm = async (req: express.Request, res: express.Response): Promise<void> => {};
