@@ -37,7 +37,6 @@ describe("AuthService", () => {
 		try {
 			await getToken(loginRequest);
 		} catch (e) {
-			console.log(e);
 			expect(e.message).to.equal(mockError);
 		}
 	});
