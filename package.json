@@ -24,7 +24,8 @@
 		"mocha": "^11.0.1",
 		"nodemon": "^3.1.9",
 		"sinon": "^19.0.2",
-		"ts-node": "^10.9.2"
+		"ts-node": "^10.9.2",
+		"typescript": "^5.7.3"
 	},
 	"dependencies": {
 		"@aws-sdk/client-s3": "^3.723.0",
