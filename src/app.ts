@@ -7,9 +7,35 @@ import { getLoginForm, getLogoutForm, postLoginForm } from "./controllers/AuthCo
 import jobRoleMiddleware from "./middleware/JobRoleMiddleware";
 import { getAllJobRolesList } from "./controllers/JobRoleController";
 import { getDetailedJobRoleController } from "./controllers/JobRoleController";
+import { getJobForm, postJobForm } from "./controllers/ApplyFormController";
+import multer from "multer";
+import multerS3 from "multer-s3";
+import { S3Client } from "@aws-sdk/client-s3";
+import { v4 as uuid } from "uuid";
 require("dotenv").config();
 
 const app = express();
+
+const s3 = new S3Client({
+	region: process.env.AWS_REGION,
+	credentials: {
+		accessKeyId: process.env.AWS_ACCESS_KEY_ID ?? "default  string",
+		secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY ?? "default  string",
+	},
+});
+
+const upload = multer({
+	storage: multerS3({
+		s3,
+		bucket: process.env.BUCKET_NAME,
+		metadata: function (req, file, callback) {
+			callback(null, { fieldName: file.fieldname });
+		},
+		key: function (req, file, callback) {
+			callback(null, uuid());
+		},
+	}),
+});
 
 app.use(bodyParser.json());
 app.use(
@@ -47,6 +73,9 @@ app.use((req, res, next) => {
 app.get("/", function (req, res) {
 	res.render("index.njk");
 });
+
+app.get("/job-form", getJobForm);
+app.post("/job-form", upload.single("cv"), postJobForm);
 
 app.get("/login", getLoginForm);
 app.post("/login", postLoginForm);
