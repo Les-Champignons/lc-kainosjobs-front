@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { getAllJobRoles } from "../services/JobRoleService";
 import { getDetailedJobRole } from "../services/JobRoleService";
 import { dateFormatter } from "../filters/dateFormatter";
-import { JwtToken, UserRole } from "../models/JwtToken";
+import { JwtToken } from "../models/JwtToken";
 import { jwtDecode } from "jwt-decode";
 
 
@@ -58,9 +58,9 @@ export const getDetailedJobRoleController = async (req: Request, res: Response):
 				closingDate: dateFormatter(jobRoleDetails.jobRoleDetailedParameters.closingDate),
 			},
 		};
-
+		// todo: thinking of passing 'applicants' details when rendering 'job-role-information'
 		const decodedToken: JwtToken = jwtDecode(req.session.token);
-		return res.render("jobRole/job-role-information.njk", { jobRoleDetails: formattedJobRoleDetails, decodedToken });
+		return res.render("jobRole/job-role-information.njk", { jobRoleDetails: formattedJobRoleDetails, decodedToken});
 	} catch (e) {
 		res.locals.errormessage = e.message;
 		res.render("jobRole/job-role-information.njk");
