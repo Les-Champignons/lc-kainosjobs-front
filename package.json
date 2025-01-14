@@ -4,7 +4,7 @@
 	"main": "index.js",
 	"scripts": {
 		"start": "tsc && node dist/app.js",
-		"dev": "nodemon src/app.ts",
+		"dev": "nodemon --exec ts-node src/app.ts",
 		"test": "ts-node --esm ./node_modules/.bin/mocha 'test/**/*.ts'"
 	},
 	"author": "",

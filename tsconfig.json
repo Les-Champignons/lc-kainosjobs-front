@@ -1,17 +1,13 @@
 {
 	"compilerOptions": {
-	  "module": "CommonJS",
-	  "esModuleInterop": true,
-	  "allowSyntheticDefaultImports": true,
-	  "target": "ESNext",
-	  "noImplicitAny": false,
-	  "moduleResolution": "node",
-	  "sourceMap": true,
-	  "outDir": "./dist"
+		"target": "ES6",
+		"module": "commonjs",
+		"outDir": "./dist",
+		"rootDir": "./src",
+		"esModuleInterop": true,
+		"moduleResolution": "node",
+		"resolveJsonModule": true
 	},
-	"include": ["src/**/*"],
-	"ts-node": {
-	  "esm": true,
-	  "experimentalSpecifierResolution": "node"
-	}
-  }
+	"include": ["src/**/*.ts"],
+	"exclude": ["node_modules"]
+}
