@@ -1,6 +1,5 @@
 {
 	"compilerOptions": {
-<<<<<<< HEAD
 		"target": "ES6",
 		"module": "commonjs",
 		"outDir": "./dist",
@@ -11,20 +10,4 @@
 	},
 	"include": ["src/**/*.ts"],
 	"exclude": ["node_modules"]
-=======
-		"module": "CommonJS",
-		"esModuleInterop": true,
-		"allowSyntheticDefaultImports": true,
-		"target": "ESNext",
-		"noImplicitAny": false,
-		"moduleResolution": "node",
-		"sourceMap": true,
-		"outDir": "./dist"
-	},
-	"include": ["src/**/*"],
-	"ts-node": {
-		"esm": true,
-		"experimentalSpecifierResolution": "node"
-	}
->>>>>>> origin/LC_US037_deploy-aws
 }
