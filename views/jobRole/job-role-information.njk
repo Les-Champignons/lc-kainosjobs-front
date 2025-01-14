@@ -35,13 +35,13 @@
             <h2 class="govuk-heading-m govuk-!-static-padding-bottom-3 govuk-!-static-padding-top-3">Full Job Description</h2>
             <p class="govuk-body">{{ jobRoleDetails.jobRoleDetailedParameters.description }}</p>
             <p class="govuk-body govuk-!-static-padding-bottom-3">{{ jobRoleDetails.jobRoleDetailedParameters.responsibilities }}</p>
-        
-        {% if jobRoleDetails.jobRoleDetailedParameters.numberOfOpenPositions > 0 %}
-            {{ govukButton({
+
+            {% if jobRoleDetails.jobRoleDetailedParameters.numberOfOpenPositions > 0 %}
+                {{ govukButton({
         text: "Apply Now",
         href: "/job-form"
         }) }}
-        {% endif %}
+            {% endif %}
 
         </div>
 
