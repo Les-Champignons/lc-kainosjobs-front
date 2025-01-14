@@ -1,17 +1,17 @@
 {
 	"compilerOptions": {
-	  "module": "CommonJS",
-	  "esModuleInterop": true,
-	  "allowSyntheticDefaultImports": true,
-	  "target": "ESNext",
-	  "noImplicitAny": false,
-	  "moduleResolution": "node",
-	  "sourceMap": true,
-	  "outDir": "./dist"
+		"module": "CommonJS",
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
+		"target": "ESNext",
+		"noImplicitAny": false,
+		"moduleResolution": "node",
+		"sourceMap": true,
+		"outDir": "./dist"
 	},
 	"include": ["src/**/*"],
 	"ts-node": {
-	  "esm": true,
-	  "experimentalSpecifierResolution": "node"
+		"esm": true,
+		"experimentalSpecifierResolution": "node"
 	}
-  }
+}
