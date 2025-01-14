@@ -59,6 +59,7 @@ export const getDetailedJobRoleController = async (req: Request, res: Response):
 			},
 		};
 		// todo: thinking of passing 'applicants' details when rendering 'job-role-information'
+		// todo: will we need to fetch data from 'Applicants' in Intellij??
 		const decodedToken: JwtToken = jwtDecode(req.session.token);
 		return res.render("jobRole/job-role-information.njk", { jobRoleDetails: formattedJobRoleDetails, decodedToken});
 	} catch (e) {
