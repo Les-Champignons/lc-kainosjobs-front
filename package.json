@@ -4,8 +4,8 @@
 	"main": "index.js",
 	"scripts": {
 		"start": "tsc && node dist/app.js",
-		"dev": "nodemon src/app.ts",
-		"test": "mocha --require ts-node/register 'test/**/*.ts'"
+		"dev": "nodemon --exec ts-node src/app.ts",
+		"test": "mocha 'test/**/*.ts'"
 	},
 	"author": "",
 	"license": "ISC",
@@ -24,7 +24,8 @@
 		"mocha": "^11.0.1",
 		"nodemon": "^3.1.9",
 		"sinon": "^19.0.2",
-		"ts-node": "^10.9.2"
+		"ts-node": "^10.9.2",
+		"typescript": "^5.7.3"
 	},
 	"dependencies": {
 		"@aws-sdk/client-s3": "^3.723.0",
@@ -32,8 +33,10 @@
 		"async": "^3.2.6",
 		"aws-sdk": "^2.1692.0",
 		"axios": "^1.7.9",
+		"axios-mock-adapter": "^2.1.0",
 		"body-parser": "^1.20.3",
 		"dotenv": "^16.4.7",
+		"esm": "^3.2.25",
 		"express": "^4.21.2",
 		"express-session": "^1.18.1",
 		"formidable": "^3.5.2",
@@ -45,6 +48,7 @@
 		"multer-s3": "^3.0.1",
 		"nunjucks": "^3.2.4",
 		"sass": "^1.83.0",
+		"tsx": "^4.19.2",
 		"uuid": "^11.0.4",
 		"uuidv4": "^6.2.13",
 		"winston": "^3.17.0"
