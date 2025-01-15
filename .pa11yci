@@ -1,13 +1,5 @@
 {
     "urls": [
-        "http://localhost:3000/",
-        "http://localhost:3000/login",
-        "http://localhost:3000/job-roles",
-        "http://localhost:3000/job-roles/1",
-        "http://localhost:3000/job-form",
-        "http://localhost:3000/create",
-        "http://localhost:3000/error",
-        "http://localhost:3000/register",
         "https://gm5yfj7hwy.eu-west-1.awsapprunner.com/",
         "https://gm5yfj7hwy.eu-west-1.awsapprunner.com/login",
         "https://gm5yfj7hwy.eu-west-1.awsapprunner.com/job-roles",
