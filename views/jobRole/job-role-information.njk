@@ -56,9 +56,7 @@
 
         </div>
     </div>
-    {# THIS WORKS!!! 
-    Now store the roleId when the user logs in session storage and check if they are 'Admin'
-    #}
+    
     {% if decodedToken.Role == 1 %}
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
@@ -75,7 +73,18 @@
                 <tbody class="govuk-table__body">
                     {# todo: loop through the list of applicant CVs from S3 bucket and display (email and #}
                     {# todo: put a button (link) beside each row, BOTH 'Hire' and 'Reject' #}
-                    {# {%  for jobRole%} #}
+                    {% for applicant in applicants %}
+                        {% set email = applicant.email %}
+                        {% set jobRoleName = applicant.jobRoleName %}
+                        {% set status = applicant.status %}
+ 
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell">
+                                <a href="/">{{ email }}</td>
+                                <td class="govuk-table__cell">{{ jobRoleName }}</td>
+                                <td class="govuk-table__cell">{{ status }}</td>
+                        </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>  
