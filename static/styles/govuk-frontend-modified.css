@@ -6805,40 +6805,40 @@
 
 .govuk-link {
 	color: #3f861d;
-  }
-  
-  .govuk-button {
+}
+
+.govuk-button {
 	background-color: #5ea53c;
-  }
-  
-  .govuk-notification-banner__title {
+}
+
+.govuk-notification-banner__title {
 	background-color: #5ea53c;
-  }
-  
-  #main-content > main > div > div > form > fieldset > button {
+}
+
+#main-content > main > div > div > form > fieldset > button {
 	background-color: #3f861d;
-  }
-  
-  #main-content > div > div:nth-child(1) > p:nth-child(7) > a {
-	content: 'Link content here';
-  }
-  
-  #main-content > div > div > form > button {
+}
+
+#main-content > div > div:nth-child(1) > p:nth-child(7) > a {
+	content: "Link content here";
+}
+
+#main-content > div > div > form > button {
 	background-color: #3f861d;
-  }
-  
-  html > body > div:nth-child(5) > div > p > span > a {
+}
+
+html > body > div:nth-child(5) > div > p > span > a {
 	color: #3f861d;
-  }
-  
-  #main-content > div > div > p:nth-child(4) > a {
+}
+
+#main-content > div > div > p:nth-child(4) > a {
 	color: #3f861d;
-  }
-  
-  #main-content > div > div > a {
+}
+
+#main-content > div > div > a {
 	background-color: #5ea53c;
-  }
-  
-  #govuk-notification-banner-title {
+}
+
+#govuk-notification-banner-title {
 	background-color: #5ea53c;
-  }
+}
