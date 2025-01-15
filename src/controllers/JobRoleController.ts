@@ -5,9 +5,7 @@ import { getAllApplicants } from "../services/ApplicantService";
 import { dateFormatter } from "../filters/dateFormatter";
 import { JwtToken } from "../models/JwtToken";
 import { jwtDecode } from "jwt-decode";
-import { ApplicantRequest } from "../models/ApplicantRequest";
 import { ApplicantResponse } from "../models/ApplicantResponse";
-
 
 interface JobRole {
 	jobRoleId: Number;
@@ -61,8 +59,7 @@ export const getDetailedJobRoleController = async (req: Request, res: Response):
 				closingDate: dateFormatter(jobRoleDetails.jobRoleDetailedParameters.closingDate),
 			},
 		};
-		// todo: thinking of passing 'applicants' details when rendering 'job-role-information'
-		// todo: will we need to fetch data from 'Applicants' in Intellij??
+
 		const decodedToken: JwtToken = jwtDecode(req.session.token);
 		const applicants: ApplicantResponse[] = await getAllApplicants();
 		return res.render("jobRole/job-role-information.njk", { jobRoleDetails: formattedJobRoleDetails, decodedToken, applicants});

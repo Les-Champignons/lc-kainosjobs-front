@@ -5,18 +5,19 @@ import session from "express-session";
 import { logger } from "./logger";
 import { getLoginForm, getLogoutForm, postLoginForm } from "./controllers/AuthController";
 import jobRoleMiddleware from "./middleware/JobRoleMiddleware";
-import { getAllJobRolesList } from "./controllers/JobRoleController";
-import { getDetailedJobRoleController } from "./controllers/JobRoleController";
-import { getJobForm, postJobForm } from "./controllers/ApplyFormController";
+import { getAllJobRolesList, getDetailedJobRoleController } from "./controllers/JobRoleController";
+import { getCV, getJobForm, postJobForm } from "./controllers/ApplyFormController";
+import { updateStatus } from "./controllers/StatusController";
 import multer from "multer";
 import multerS3 from "multer-s3";
 import { S3Client } from "@aws-sdk/client-s3";
 import { v4 as uuid } from "uuid";
+
 require("dotenv").config();
 
 const app = express();
 
-const s3 = new S3Client({
+export const s3 = new S3Client({
 	region: process.env.AWS_REGION,
 	credentials: {
 		accessKeyId: process.env.AWS_ACCESS_KEY_ID ?? "default  string",
@@ -84,6 +85,10 @@ app.get("/signout", getLogoutForm);
 app.get("/job-roles", jobRoleMiddleware, getAllJobRolesList);
 
 app.get("/job-roles/:id", jobRoleMiddleware, getDetailedJobRoleController);
+
+app.post("/update-application-status/:id", updateStatus);
+
+app.get("/cv/:id", getCV)
 
 app.get("*", function (req, res) {
 	res.render("errors/404.njk");

@@ -57,7 +57,7 @@
         </div>
     </div>
     
-    {% if decodedToken.Role == 1 %}
+    {% if decodedToken.Role == 1%}
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <h1>Applicants</h1>
@@ -66,24 +66,47 @@
                 <thead class="govuk-table__head">
                     <tr class="govuk-table__row">
                         <th scope="col" class="govuk-table__header">Email</th>
-                        <th scope="col" class="govuk-table__header">CV</th>
                         <th scope="col" class="govuk-table__header">Status</th>
+                        <th scope="col" class="govuk-table__header"></th>
                     </tr>
                 </thead>
                 <tbody class="govuk-table__body">
                     {# todo: loop through the list of applicant CVs from S3 bucket and display (email and #}
                     {# todo: put a button (link) beside each row, BOTH 'Hire' and 'Reject' #}
                     {% for applicant in applicants %}
-                        {% set email = applicant.email %}
-                        {% set jobRoleName = applicant.jobRoleName %}
-                        {% set status = applicant.status %}
- 
-                        <tr class="govuk-table__row">
-                            <td class="govuk-table__cell">
-                                <a href="/">{{ email }}</td>
-                                <td class="govuk-table__cell">{{ jobRoleName }}</td>
-                                <td class="govuk-table__cell">{{ status }}</td>
-                        </tr>
+                        {% if applicant.jobRoleName == jobRoleDetails.jobRoleDetailedParameters.roleName %}
+                            {% set applicantId = applicant.applicantId %}
+                            {% set email = applicant.email %}
+                            {% set jobRoleName = applicant.jobRoleName %}
+                            {% set status = applicant.status %}
+
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell">
+                                    <a href="/cv/{{ applicantId }}">{{ email }}</td>
+                                    <td class="govuk-table__cell">{{ status }}</td>
+                                    <td class="govuk-table__cell">
+                                    {% if status == "In Progress" %}
+                                    <div class="govuk-button-group govuk-button-group">
+                                        <form action="/update-application-status/{{ applicantId }}" class="form" method="post">
+                                            <input type="hidden" name="status" value="Hired">
+                                            <input type="hidden" name="jobRoleId" value="{{ jobRoleDetails.jobRoleId }}">
+                                            {{ govukButton({
+                                            text: "Hire"
+                                            }) }}
+                                        </form>
+                                        <form action="/update-application-status/{{ applicantId }}" class="form" method="post">
+                                            <input type="hidden" name="status" value="Rejected">
+                                            <input type="hidden" name="jobRoleId" value="{{ jobRoleDetails.jobRoleId }}">
+                                            {{ govukButton({
+                                            text: "Reject",
+                                            classes: "govuk-button--secondary"
+                                            }) }}
+                                        </form>
+                                    </div>
+                                    {% endif %}
+                                    </td>
+                            </tr>
+                        {% endif %}
                     {% endfor %}
                 </tbody>
             </table>
