@@ -12,6 +12,8 @@ import multerS3 from "multer-s3";
 import { S3Client } from "@aws-sdk/client-s3";
 import { v4 as uuid } from "uuid";
 import dotenv from "dotenv";
+import { allowRoles } from "./middleware/AuthMiddleware";
+import { UserRole } from "./models/JwtToken";
 
 dotenv.config();
 
@@ -80,16 +82,16 @@ app.get("/", function (req, res) {
 	res.render("index.njk");
 });
 
-app.get("/job-form", getJobForm);
-app.post("/job-form", upload.single("cv"), postJobForm);
+app.get("/job-form", allowRoles([UserRole.User, UserRole.Admin]), getJobForm);
+app.post("/job-form", allowRoles([UserRole.User, UserRole.Admin]), upload.single("cv"), postJobForm);
 
 app.get("/login", getLoginForm);
 app.post("/login", postLoginForm);
-app.get("/signout", getLogoutForm);
+app.get("/signout", allowRoles([UserRole.User, UserRole.Admin]), getLogoutForm);
 
-app.get("/job-roles", jobRoleMiddleware, getAllJobRolesList);
+app.get("/job-roles", allowRoles([UserRole.User, UserRole.Admin]), jobRoleMiddleware, getAllJobRolesList);
 
-app.get("/job-roles/:id", jobRoleMiddleware, getDetailedJobRoleController);
+app.get("/job-roles/:id", allowRoles([UserRole.User, UserRole.Admin]), jobRoleMiddleware, getDetailedJobRoleController);
 
 app.get("*", function (req, res) {
 	res.render("errors/404.njk");
