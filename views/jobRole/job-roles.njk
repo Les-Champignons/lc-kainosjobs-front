@@ -39,8 +39,8 @@
                         <tr class="govuk-table__row">
                             <td class="govuk-table__cell">
                                 <a class="job-role_link" href="/job-roles/{{jobRole.jobRoleId}}">{{ roleName }}</td>
-                                <td class="govuk-table__cell">{{ location }}</td>
-                                <td class="govuk-table__cell">{{ closingDate }}</td>
+                                <td class="govuk-table__cell job-role-table-cell__location">{{ location }}</td>
+                                <td class="govuk-table__cell job-role-table-cell__closingDate">{{ closingDate }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>

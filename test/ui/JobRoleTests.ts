@@ -4,32 +4,39 @@ import webdriver from 'selenium-webdriver';
 
 const { Builder, By, until } = require('selenium-webdriver');
 import { expect } from 'chai';
-import { describe, it } from 'node:test';
+import { beforeEach, describe, it } from 'node:test';
 
 describe('Job role tests', async () => {
-    it('List of job roles should contain text', async () => {
+    let driver: webdriver.WebDriver;
 
-        const driver = new webdriver.Builder().
+    beforeEach(() => {
+        driver = new webdriver.Builder().
         withCapabilities(webdriver.Capabilities.chrome()).
         build();
+    })
+
+    it('List of job roles should contain correct data', async () => {
 
         const url: string = 'http://localhost:3000/job-roles';
+
         try {
             await driver.get(url);
 
-            const cells = await driver.findElements(By.className('govuk-table__cell'));
+            const location = await driver.findElement(By.className('job-role-table-cell__location')).getText();
+            const closingDate = await driver.findElement(By.className('job-role-table-cell__closingDate')).getText();
 
-            for (let cell of cells) {
-                let text = await cell.getText();
-                expect(text).to.not.be.empty;
-            }
+            const dateFormat: RegExp = /^\d{2}\/\d{2}\/\d{4}$/;
+            const isDateFormat: boolean = dateFormat.test(closingDate);
+
+            expect(isDateFormat).to.be.true;
+            expect(location).to.be.string;
+            
         } finally {
             await driver.quit();
         }    
     })
 
     it('Link should redirect to detailed job role that should contain correct information', async () => {
-        const driver = new webdriver.Builder().withCapabilities(webdriver.Capabilities.chrome()).build();
         const url = 'http://localhost:3000/job-roles';
 
         try {

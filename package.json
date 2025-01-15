@@ -21,7 +21,7 @@
 		"chai": "^4.3.7",
 		"mocha": "^11.0.1",
 		"nodemon": "^3.1.9",
-		"selenium-webdriver": "^4.9.0",
+		"selenium-webdriver": "^4.27.0",
 		"ts-node": "^10.9.2"
 	},
 	"dependencies": {
