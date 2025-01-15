@@ -68,3 +68,13 @@ export const getDetailedJobRoleController = async (req: Request, res: Response):
 		res.render("jobRole/job-role-information.njk");
 	}
 };
+
+export const updateNumberOfOpenPostions = async(req: Request, res: Response): Promise<void> => {
+	const jobRoleId = req.params.id
+	try {
+		
+		return
+	} catch (e) {
+
+	}
+}
