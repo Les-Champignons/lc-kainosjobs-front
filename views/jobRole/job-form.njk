@@ -21,21 +21,24 @@
                 text: "Job Application Form"            
             }
         ]
-        }) }}
+    }) }}
 {% endblock %}
-{% block content %}
-<div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-        <h1 class="govuk-heading-l govuk-!-static-padding-bottom-5">Upload your CV</h1>
-        <p class="govuk-body govuk-!-static-padding-bottom-5"><b>Choose file</b> from your device or <b>Drag and Drop</b></p>
-        
-        <form action="/job-form" class="form" method="post" enctype="multipart/form-data">
-            <input type="file" name="cv"></input>
-            {{ govukButton({
-            text: "Upload"
-            }) }}
-        </form>
-    </div>
-</div>
 
+{% block content %}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-l govuk-!-static-padding-bottom-5">Upload your CV</h1>
+            <p class="govuk-body govuk-!-static-padding-bottom-5">
+                <b>Choose file</b> from your device or <b>Drag and Drop</b>
+            </p>
+            <form action="/job-form" class="form" method="post" enctype="multipart/form-data">
+                <label for="cv">Upload your CV
+                <input type="file" name="label element" aria-labelledby="title">
+                </label>
+                {{ govukButton({
+                    text: "Upload"
+                }) }}
+            </form>
+        </div>
+    </div>
 {% endblock %}
