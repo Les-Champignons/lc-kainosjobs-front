@@ -3,7 +3,7 @@ import * as JobRoleService from "../../../src/services/JobRoleService";
 import { expect } from "chai";
 import { JobRoleResponse } from "../../../src/models/JobRoleResponse";
 import sinon from "sinon";
-import { dateFormatter } from "../../../src/filters/dateFormatter";
+import { dateFormatter as dateFormatterTest } from "../../../src/filters/dateFormatter";
 import { JobRoleDetailedParameters } from "../../../src/models/JobRoleDetailedParameters";
 import { JobRoleDetailedResponse } from "../../../src/models/JobRoleDetailedResponse";
 
@@ -52,7 +52,7 @@ describe("JobRoleController", function () {
 
 			const formattedJobRoles = jobRoleList.map((jobRole) => ({
 				...jobRole,
-				closingDate: dateFormatter(jobRole.closingDate),
+				closingDate: dateFormatterTest(jobRole.closingDate),
 			}));
 
 			expect(res.render.calledOnce).to.be.true;
@@ -89,7 +89,7 @@ describe("JobRoleController", function () {
 				...jobRoleDetails,
 				jobRoleDetailedParameters: {
 					...jobRoleDetails.jobRoleDetailedParameters,
-					closingDate: dateFormatter(jobRoleDetails.jobRoleDetailedParameters.closingDate),
+					closingDate: dateFormatterTest(jobRoleDetails.jobRoleDetailedParameters.closingDate),
 				},
 			};
 

@@ -1,0 +1,15 @@
+services:
+  web:
+    image: "lc-kainos-jobs-front"
+    ports:
+      - "3000:3000"
+    env_file: ".env"
+    environment:
+      - API_URL=http://api:8080
+    depends_on:
+      - api
+  api:
+    image: "kainos-job-api"
+    env_file: ".env.backend"
+    ports:
+      - "8080:8080"
