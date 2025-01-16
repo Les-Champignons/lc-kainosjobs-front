@@ -31,7 +31,7 @@ export const s3 = new S3Client({
 const upload = multer({
 	storage: multerS3({
 		s3,
-		bucket: bucketName,
+		bucket: process.env.BUCKET_NAME,
 		metadata: function (req, file, callback) {
 			callback(null, { fieldName: file.fieldname });
 		},
@@ -43,8 +43,8 @@ const upload = multer({
 
 app.use(
 	session({
-		secret: sessionSecret,
-		cookie: { maxAge: sessionMaxAge },
+		secret: process.env.SESSION_SECRET,
+		cookie: { maxAge: parseInt(process.env.EXPIRATION_TIME) || 36000 },
 	})
 );
 
