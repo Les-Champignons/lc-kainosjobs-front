@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getAllJobRoles } from "../services/JobRoleService";
+import { deleteJobRole, getAllJobRoles } from "../services/JobRoleService";
 import { getDetailedJobRole } from "../services/JobRoleService";
 import { dateFormatter } from "../filters/dateFormatter";
 
@@ -60,4 +60,17 @@ export const getDetailedJobRoleController = async (req: Request, res: Response):
 		res.locals.errormessage = e.message;
 		res.render("jobRole/job-role-information.njk");
 	}
+};
+
+export const getJobRoleDeleteForm = async (req: Request, res: Response): Promise<void> => {
+    return res.render('jobRole/delete.njk', { jobRole: await getDetailedJobRole(req.params.id, req.session.token) });
+}
+
+export const postJobRoleDeleteForm = async (req: Request, res: Response): Promise<void> => {
+    try {
+        await deleteJobRole(req.params.id, req.session.token);
+        return res.render('jobRole/deleteSuccess.njk');
+    } catch (e) {
+        return res.render('jobRole/delete.njk', { jobRole: await getDetailedJobRole(req.params.id, req.session.token), error: e });
+    }
 };

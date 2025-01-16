@@ -1,0 +1,24 @@
+{% extends "templates/layout.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {{ govukPanel({
+        titleText: "Job role deleted"
+      }) }}
+
+      <p class="govuk-body">`You have successfully deleted the Job role ${jobRole.jobRoleId}`</p>
+
+      <h2 class="govuk-heading-m">What happens next</h2>
+
+      <p class="govuk-body">
+        You can now return to the <a href="/job-roles">Job role list</a> to continue managing Job roles.
+      </p>
+    </div>
+  </div>
+
+{% endblock %}

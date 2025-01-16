@@ -5,7 +5,7 @@ import session from "express-session";
 import { logger } from "./logger";
 import { getLoginForm, getLogoutForm, postLoginForm } from "./controllers/AuthController";
 import jobRoleMiddleware from "./middleware/JobRoleMiddleware";
-import { getAllJobRolesList, getDetailedJobRoleController } from "./controllers/JobRoleController";
+import { getAllJobRolesList, getDetailedJobRoleController, getJobRoleDeleteForm, postJobRoleDeleteForm } from "./controllers/JobRoleController";
 import { getJobForm, postJobForm } from "./controllers/ApplyFormController";
 import multer from "multer";
 import multerS3 from "multer-s3";
@@ -93,6 +93,10 @@ app.get("/job-roles", allowRoles([UserRole.User, UserRole.Admin]), jobRoleMiddle
 
 app.get("/job-roles/:id", allowRoles([UserRole.User, UserRole.Admin]), jobRoleMiddleware, getDetailedJobRoleController);
 
+app.get('/job-roles/delete/:id', allowRoles([UserRole.Admin]), getJobRoleDeleteForm);
+app.post('/job-roles/delete/:id', allowRoles([UserRole.Admin]),postJobRoleDeleteForm);
+
 app.get("*", function (req, res) {
 	res.render("errors/404.njk");
 });
+
