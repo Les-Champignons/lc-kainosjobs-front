@@ -94,7 +94,7 @@ app.get("/job-roles/:id", allowRoles([UserRole.User, UserRole.Admin]), jobRoleMi
 
 app.post("/update-application-status/:id", updateStatus);
 
-app.get("/cv/:id", getCV)
+app.get("/cv/:id", getCV);
 
 app.get("*", function (req, res) {
 	res.render("errors/404.njk");

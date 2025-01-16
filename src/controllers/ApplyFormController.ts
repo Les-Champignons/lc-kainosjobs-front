@@ -11,9 +11,9 @@ export const getJobForm = async (req: Request, res: Response): Promise<void> => 
 	try {
 		const jobRoleId = req.params.jobRoleId;
 		res.render("jobRole/job-form.njk", { jobRoleId });
-		return
+		return;
 	} catch (e) {
-		res.render("/jobRole/job-form.njk")
+		res.render("/jobRole/job-form.njk");
 	}
 };
 
@@ -26,28 +26,26 @@ export const postJobForm = async (req: Request, res: Response): Promise<void> =>
 
 		const applicationId = await createApplication(email, jobRole, (req.file as any).key);
 
-		return res.redirect('/');
-	} catch (e){
-		throw new Error("Couldn't upload file!")
+		return res.redirect("/");
+	} catch (e) {
+		throw new Error("Couldn't upload file!");
 	}
 };
 
 export const getCV = async (req: Request, res: Response): Promise<void> => {
 	try {
-		const applicationId = req.params.id
+		const applicationId = req.params.id;
 		const applicants: ApplicantResponse[] = await getAllApplicants();
-		const application: ApplicantResponse = applicants.find(ap => (ap as any).applicantId == applicationId);
-		
+		const application: ApplicantResponse = applicants.find((ap) => (ap as any).applicantId == applicationId);
+
 		const command = new GetObjectCommand({
 			Bucket: process.env.BUCKET_NAME,
 			Key: application.etag.toString(),
 			ResponseContentType: "application/pdf",
-			ResponseContentDisposition: "inline"
+			ResponseContentDisposition: "inline",
 		});
 		const url = await getSignedUrl(s3, command, { expiresIn: 3600 });
 
 		res.redirect(url);
-	} catch (e) {
-
-	}
-}
+	} catch (e) {}
+};
