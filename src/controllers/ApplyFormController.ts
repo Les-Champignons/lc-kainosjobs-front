@@ -38,7 +38,7 @@ export const getCV = async (req: Request, res: Response): Promise<void> => {
 		const application: ApplicantResponse = applicants.find((applicant) => applicant.applicantId == applicationId);
 
 		const command = new GetObjectCommand({
-			Bucket: process.env.BUCKET_NAME,
+			Bucket: process.env.AWS_BUCKET_NAME,
 			Key: application.etag.toString(),
 			ResponseContentType: "application/pdf",
 			ResponseContentDisposition: "inline",
