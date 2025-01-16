@@ -1,4 +1,4 @@
-import { application, Request, Response } from "express";
+import { Request, Response } from "express";
 import { ApplicantResponse } from "../models/ApplicantResponse";
 import { createApplication, getAllApplicants } from "../services/ApplicantService";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
@@ -22,11 +22,10 @@ export const postJobForm = async (req: Request, res: Response): Promise<void> =>
 		const user: JwtToken = jwtDecode(req.session.token);
 		const email = user.User.email;
 		const jobRole = req.body.jobRoleId;
-		const file = req.file;
 
-		const applicationId = await createApplication(email, jobRole, (req.file as any).key);
+		await createApplication(email, jobRole, (req.file as any).key);
 
-		return res.redirect('/');
+		return res.redirect(`/job-roles/${jobRole}`);
 	} catch (e){
 		throw new Error("Couldn't upload file!")
 	}
