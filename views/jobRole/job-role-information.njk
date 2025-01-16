@@ -39,7 +39,7 @@
         {% if jobRoleDetails.jobRoleDetailedParameters.numberOfOpenPositions > 0 %}
             {{ govukButton({
         text: "Apply Now",
-        href: "/job-form"
+        href: "/job-form/" + jobRoleDetails.jobRoleId
         }) }}
         {% endif %}
 
@@ -74,7 +74,7 @@
                     {# todo: loop through the list of applicant CVs from S3 bucket and display (email and #}
                     {# todo: put a button (link) beside each row, BOTH 'Hire' and 'Reject' #}
                     {% for applicant in applicants %}
-                        {% if applicant.jobRoleName == jobRoleDetails.jobRoleDetailedParameters.roleName %}
+                        {% if applicant.jobRoleName == jobRoleDetails.jobRoleId %}
                             {% set applicantId = applicant.applicantId %}
                             {% set email = applicant.email %}
                             {% set jobRoleName = applicant.jobRoleName %}

@@ -1,20 +1,17 @@
-import { Request, Response } from "express";
+import { application, Request, Response } from "express";
 import { ApplicantResponse } from "../models/ApplicantResponse";
-import { getAllApplicants } from "../services/ApplicantService";
+import { createApplication, getAllApplicants } from "../services/ApplicantService";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { GetObjectCommand } from "@aws-sdk/client-s3";
 import { s3 } from "../app";
+import { jwtDecode } from "jwt-decode";
+import { JwtToken } from "../models/JwtToken";
 
 export const getJobForm = async (req: Request, res: Response): Promise<void> => {
 	try {
-		const applicationId = req.body.id
-		const applicants: ApplicantResponse[] = await getAllApplicants();
-		const application: ApplicantResponse = applicants.find(ap => (ap as any).applicantId == applicationId);
-		console.log("ID" + applicationId)
-		console.log(applicants)
-		console.log("Application" + application)
-
-		res.render("jobRole/job-form.njk", { application });
+		const jobRoleId = req.params.jobRoleId;
+		// console.log(jobRoleId)
+		res.render("jobRole/job-form.njk", { jobRoleId });
 		return
 	} catch (e) {
 		res.render("/jobRole/job-form.njk")
@@ -23,7 +20,16 @@ export const getJobForm = async (req: Request, res: Response): Promise<void> => 
 
 export const postJobForm = async (req: Request, res: Response): Promise<void> => {
 	try {
-		return
+		const user: JwtToken = jwtDecode(req.session.token);
+		const email = user.User.email;
+		const jobRole = req.body.jobRoleId;
+		console.log("id"+jobRole)
+		console.log("email"+email)
+		const file = req.file;
+
+		const applicationId = await createApplication(email, jobRole, (req.file as any).key);
+
+		return res.redirect('/');
 	} catch (e){
 		throw new Error("Couldn't upload file!")
 	}

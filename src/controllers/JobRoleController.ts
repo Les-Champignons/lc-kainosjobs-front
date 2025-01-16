@@ -65,6 +65,7 @@ export const getDetailedJobRoleController = async (req: Request, res: Response):
 		return res.render("jobRole/job-role-information.njk", { jobRoleDetails: formattedJobRoleDetails, decodedToken, applicants});
 	} catch (e) {
 		res.locals.errormessage = e.message;
+		console.log(e);
 		res.render("jobRole/job-role-information.njk");
 	}
 };

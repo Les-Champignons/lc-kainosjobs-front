@@ -29,10 +29,9 @@
         <h1 class="govuk-heading-l govuk-!-static-padding-bottom-5">Upload your CV</h1>
         <p class="govuk-body govuk-!-static-padding-bottom-5"><b>Choose file</b> from your device or <b>Drag and Drop</b></p>
         
-        <form action="/job-form" class="form" method="post" enctype="multipart/form-data">
+        <form action="/job-form/{{ applicant }}" class="form" method="post" enctype="multipart/form-data">
             <input type="file" name="cv"></input>
-            <input type="hidden" name="status" value="Hired">
-            <input type="hidden" name="jobRoleId" value="{{ jobRoleDetails.jobRoleId }}">
+            <input type="hidden" name="jobRoleId" value="{{ jobRoleId }}">
             {{ govukButton({
             text: "Upload"
             }) }}

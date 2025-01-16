@@ -74,7 +74,7 @@ app.get("/", function (req, res) {
 	res.render("index.njk");
 });
 
-app.get("/job-form", getJobForm);
+app.get("/job-form/:jobRoleId", getJobForm);
 app.post("/job-form", upload.single("cv"), postJobForm);
 
 app.get("/login", getLoginForm);
