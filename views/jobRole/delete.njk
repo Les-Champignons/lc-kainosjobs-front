@@ -18,9 +18,12 @@
             {
                 text: "Job Roles",
                 href: "/job-roles"
+            },
+            {
+                text: "Delete a job role"            
             }
         ]
-        }) }}
+    }) }}
 {% endblock %}
 
 {% block content %}
@@ -32,35 +35,34 @@
             {{ govukWarningText({
                 text: "This action is permanent and cannot be undone.",
                 iconFallbackText: "Warning"
-                }) }}
-
-            {{ govukRadios({
-                  name: "deleteButton",
-                  fieldset: {
-                    legend: {
-                      text: ["Are you sure you wish to delete ", name, "?"] | join,
-                      isPageHeading: false,
-                      classes: "govuk-fieldset__legend--m"
-                    }
-                  },
-
-                  items: [
-                    {
-                      value: "true",
-                      text: "Yes"
-                    },
-                    {
-                      value: "false",
-                      text: "No"
-                    }
-                  ]
-                }) }}
+            }) }}
 
             <form method="post">
+                {{ govukRadios({
+                    name: "confirmDelete",
+                    fieldset: {
+                        legend: {
+                            text: ["Are you sure you wish to delete ", name, "?"] | join,
+                            isPageHeading: false,
+                            classes: "govuk-fieldset__legend--m"
+                        }
+                    },
+                    items: [
+                        {
+                            value: "true",
+                            text: "Yes"
+                        },
+                        {
+                            value: "false",
+                            text: "No"
+                        }
+                    ]
+                }) }}
+
                 {{ govukButton({
-               text: "Delete",
-               classes: "govuk-button--warning"
-            }) }}
+                    text: "Delete",
+                    classes: "govuk-button--warning"
+                }) }}
             </form>
 
         </div>

@@ -94,7 +94,7 @@ app.get("/job-roles", allowRoles([UserRole.User, UserRole.Admin]), jobRoleMiddle
 app.get("/job-roles/:id", allowRoles([UserRole.User, UserRole.Admin]), jobRoleMiddleware, getDetailedJobRoleController);
 
 app.get('/job-roles/delete/:id', allowRoles([UserRole.Admin]), getJobRoleDeleteForm);
-app.post('/job-roles/delete/:id', allowRoles([UserRole.Admin]),postJobRoleDeleteForm);
+app.post('/job-roles/delete/:id', allowRoles([UserRole.Admin]), postJobRoleDeleteForm);
 
 app.get("*", function (req, res) {
 	res.render("errors/404.njk");

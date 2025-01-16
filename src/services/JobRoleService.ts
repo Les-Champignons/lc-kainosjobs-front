@@ -26,11 +26,12 @@ export const getDetailedJobRole = async (id: string, token: String): Promise<Job
 	}
 };
 
+
 export const deleteJobRole = async (id: String, token: String): Promise<void> => {
-    try {
-        const response: AxiosResponse = await axios.delete(`${URL}/${id}`, getHeader(token));
-        return response.data;
-    } catch (e) {
-        throw new Error(`Failed to delete job role ${id}`);
-    }
+	try {
+		const response: AxiosResponse = await axios.delete(`${URL}/${id}`, getHeader(token));
+		return response.data;
+	} catch (e) {
+		throw new Error(`Failed to delete job role ${id}`);
+	}
 };

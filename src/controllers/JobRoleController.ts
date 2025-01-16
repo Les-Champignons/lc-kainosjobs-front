@@ -63,14 +63,14 @@ export const getDetailedJobRoleController = async (req: Request, res: Response):
 };
 
 export const getJobRoleDeleteForm = async (req: Request, res: Response): Promise<void> => {
-    return res.render('jobRole/delete.njk', { jobRole: await getDetailedJobRole(req.params.id, req.session.token) });
+	return res.render('jobRole/delete.njk', { jobRole: await getDetailedJobRole(req.params.id, req.session.token) });
 }
 
 export const postJobRoleDeleteForm = async (req: Request, res: Response): Promise<void> => {
-    try {
-        await deleteJobRole(req.params.id, req.session.token);
-        return res.render('jobRole/deleteSuccess.njk');
-    } catch (e) {
-        return res.render('jobRole/delete.njk', { jobRole: await getDetailedJobRole(req.params.id, req.session.token), error: e });
-    }
+	try {
+		await deleteJobRole(req.params.id, req.session.token);
+		return res.render('jobRole/deleteSuccess.njk');
+	} catch (e) {
+		return res.render('jobRole/delete.njk', { jobRole: await getDetailedJobRole(req.params.id, req.session.token), error: e });
+	}
 };
