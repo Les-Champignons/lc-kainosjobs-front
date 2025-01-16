@@ -23,7 +23,7 @@ export const postJobForm = async (req: Request, res: Response): Promise<void> =>
 		const email = user.User.email;
 		const jobRole = req.body.jobRoleId;
 
-		await createApplication(email, jobRole, (req.file as any).key);
+		await createApplication(email, jobRole, req.file.key);
 
 		return res.redirect(`/job-roles/${jobRole}`);
 	} catch (e) {
@@ -35,7 +35,7 @@ export const getCV = async (req: Request, res: Response): Promise<void> => {
 	try {
 		const applicationId = req.params.id;
 		const applicants: ApplicantResponse[] = await getAllApplicants();
-		const application: ApplicantResponse = applicants.find((ap) => (ap as any).applicantId == applicationId);
+		const application: ApplicantResponse = applicants.find((applicant) => applicant.applicantId == applicationId);
 
 		const command = new GetObjectCommand({
 			Bucket: process.env.BUCKET_NAME,

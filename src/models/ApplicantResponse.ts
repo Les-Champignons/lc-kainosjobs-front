@@ -3,4 +3,5 @@ export type ApplicantResponse = {
 	jobRoleName: String;
 	etag: String;
 	status: String;
+	applicantId: String;
 };
