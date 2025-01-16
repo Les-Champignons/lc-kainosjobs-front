@@ -10,7 +10,6 @@ import { JwtToken } from "../models/JwtToken";
 export const getJobForm = async (req: Request, res: Response): Promise<void> => {
 	try {
 		const jobRoleId = req.params.jobRoleId;
-		// console.log(jobRoleId)
 		res.render("jobRole/job-form.njk", { jobRoleId });
 		return
 	} catch (e) {
@@ -23,8 +22,6 @@ export const postJobForm = async (req: Request, res: Response): Promise<void> =>
 		const user: JwtToken = jwtDecode(req.session.token);
 		const email = user.User.email;
 		const jobRole = req.body.jobRoleId;
-		console.log("id"+jobRole)
-		console.log("email"+email)
 		const file = req.file;
 
 		const applicationId = await createApplication(email, jobRole, (req.file as any).key);

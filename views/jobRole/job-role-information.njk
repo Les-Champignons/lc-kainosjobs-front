@@ -27,7 +27,8 @@
             <h2 class="govuk-heading-m govuk-!-static-padding-bottom-3">Job Details</h2>
             <p class="govuk-body">Location: {{  jobRoleDetails.jobRoleDetailedParameters.location }}</p>
             <p class="govuk-body">Closing Date: {{  jobRoleDetails.jobRoleDetailedParameters.closingDate }}</p>
-            <p class="govuk-body">Number of Open Positions: {{  jobRoleDetails.jobRoleDetailedParameters.numberOfOpenPositions }}</p>
+            <p class="govuk-body">Number of Open Positions: 
+                {{  jobRoleDetails.jobRoleDetailedParameters.numberOfOpenPositions - hiredApplicants.length}}</p>
             <p class="govuk-body">Band: {{  jobRoleDetails.bandName }}</p>
             <p class="govuk-body">SharePoint URL: <a href="{{  jobRoleDetails.jobRoleDetailedParameters.sharepointUrl }}" class="govuk-link">{{  jobRoleDetails.jobRoleDetailedParameters.sharepointUrl }}</a>
             </p>
