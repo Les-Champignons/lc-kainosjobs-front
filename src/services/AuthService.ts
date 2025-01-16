@@ -7,6 +7,6 @@ export const getToken = async (loginRequest: LoginRequest): Promise<string> => {
 
 		return response.data;
 	} catch (e) {
-		throw new Error(e.response.data);
+		throw new Error(e.response.data.message);
 	}
 };

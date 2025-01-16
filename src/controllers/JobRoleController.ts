@@ -36,7 +36,7 @@ interface JobRoleDetailedResponse {
 
 export const getAllJobRolesList = async (req: Request, res: Response): Promise<void> => {
 	try {
-		const jobRoles: JobRole[] = await getAllJobRoles();
+		const jobRoles: JobRole[] = await getAllJobRoles(req.session.token);
 		const formattedJobRoles = jobRoles.map((jobRole) => ({
 			...jobRole,
 			closingDate: dateFormatter(jobRole.closingDate),
@@ -51,7 +51,7 @@ export const getAllJobRolesList = async (req: Request, res: Response): Promise<v
 export const getDetailedJobRoleController = async (req: Request, res: Response): Promise<void> => {
 	try {
 		const jobRoleId = req.params.id;
-		const jobRoleDetails: JobRoleDetailedResponse = await getDetailedJobRole(jobRoleId);
+		const jobRoleDetails: JobRoleDetailedResponse = await getDetailedJobRole(jobRoleId, req.session.token);
 		const formattedJobRoleDetails = {
 			...jobRoleDetails,
 			jobRoleDetailedParameters: {
@@ -62,7 +62,7 @@ export const getDetailedJobRoleController = async (req: Request, res: Response):
 
 		const decodedToken: JwtToken = jwtDecode(req.session.token);
 		const applicants: ApplicantResponse[] = await getAllApplicants();
-		return res.render("jobRole/job-role-information.njk", { jobRoleDetails: formattedJobRoleDetails, decodedToken, applicants, hiredApplicants: applicants.filter(a => a.status == "Hired")});
+		return res.render("jobRole/job-role-information.njk", { jobRoleDetails: formattedJobRoleDetails, decodedToken, applicants, hiredApplicants: applicants.filter((a) => a.status == "Hired") });
 	} catch (e) {
 		res.locals.errormessage = e.message;
 		res.render("jobRole/job-role-information.njk");

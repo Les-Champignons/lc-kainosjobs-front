@@ -12,22 +12,26 @@ import multer from "multer";
 import multerS3 from "multer-s3";
 import { S3Client } from "@aws-sdk/client-s3";
 import { v4 as uuid } from "uuid";
-require("dotenv").config();
+import dotenv from "dotenv";
+import { allowRoles } from "./middleware/AuthMiddleware";
+import { UserRole } from "./models/JwtToken";
+
+dotenv.config();
 
 const app = express();
 
 export const s3 = new S3Client({
 	region: process.env.AWS_REGION,
 	credentials: {
-		accessKeyId: process.env.AWS_ACCESS_KEY_ID ?? "default  string",
-		secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY ?? "default  string",
+		accessKeyId: process.env.AWS_ACCESS_KEY_ID ?? "default string",
+		secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY ?? "default string",
 	},
 });
 
 const upload = multer({
 	storage: multerS3({
 		s3,
-		bucket: process.env.BUCKET_NAME,
+		bucket: bucketName,
 		metadata: function (req, file, callback) {
 			callback(null, { fieldName: file.fieldname });
 		},
@@ -37,12 +41,15 @@ const upload = multer({
 	}),
 });
 
-app.use(bodyParser.json());
 app.use(
-	bodyParser.urlencoded({
-		extended: true,
+	session({
+		secret: sessionSecret,
+		cookie: { maxAge: sessionMaxAge },
 	})
 );
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 const env = nunjucks.configure(["node_modules/govuk-frontend/dist", "views"], {
 	autoescape: true,
@@ -74,20 +81,20 @@ app.get("/", function (req, res) {
 	res.render("index.njk");
 });
 
-app.get("/job-form/:jobRoleId", getJobForm);
-app.post("/job-form", upload.single("cv"), postJobForm);
+app.get("/job-form", allowRoles([UserRole.User, UserRole.Admin]), getJobForm);
+app.post("/job-form", allowRoles([UserRole.User, UserRole.Admin]), upload.single("cv"), postJobForm);
 
 app.get("/login", getLoginForm);
 app.post("/login", postLoginForm);
-app.get("/signout", getLogoutForm);
+app.get("/signout", allowRoles([UserRole.User, UserRole.Admin]), getLogoutForm);
 
-app.get("/job-roles", jobRoleMiddleware, getAllJobRolesList);
+app.get("/job-roles", allowRoles([UserRole.User, UserRole.Admin]), jobRoleMiddleware, getAllJobRolesList);
 
-app.get("/job-roles/:id", jobRoleMiddleware, getDetailedJobRoleController);
+app.get("/job-roles/:id", allowRoles([UserRole.User, UserRole.Admin]), jobRoleMiddleware, getDetailedJobRoleController);
 
 app.post("/update-application-status/:id", updateStatus);
 
-app.get("/cv/:id", getCV)
+app.get("/cv/:id", getCV);
 
 app.get("*", function (req, res) {
 	res.render("errors/404.njk");
