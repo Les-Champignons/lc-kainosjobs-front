@@ -27,7 +27,8 @@
             <h2 class="govuk-heading-m govuk-!-static-padding-bottom-3">Job Details</h2>
             <p class="govuk-body">Location: {{  jobRoleDetails.jobRoleDetailedParameters.location }}</p>
             <p class="govuk-body">Closing Date: {{  jobRoleDetails.jobRoleDetailedParameters.closingDate }}</p>
-            <p class="govuk-body">Number of Open Positions: {{  jobRoleDetails.jobRoleDetailedParameters.numberOfOpenPositions }}</p>
+            <p class="govuk-body">Number of Open Positions: 
+                {{  jobRoleDetails.jobRoleDetailedParameters.numberOfOpenPositions - hiredApplicants.length}}</p>
             <p class="govuk-body">Band: {{  jobRoleDetails.bandName }}</p>
             <p class="govuk-body">SharePoint URL: <a href="{{  jobRoleDetails.jobRoleDetailedParameters.sharepointUrl }}" class="govuk-link">{{  jobRoleDetails.jobRoleDetailedParameters.sharepointUrl }}</a>
             </p>
@@ -39,7 +40,7 @@
             {% if jobRoleDetails.jobRoleDetailedParameters.numberOfOpenPositions > 0 %}
                 {{ govukButton({
         text: "Apply Now",
-        href: "/job-form"
+        href: "/job-form/" + jobRoleDetails.jobRoleId
         }) }}
             {% endif %}
 
@@ -56,4 +57,59 @@
 
             </div>
     </div>
+    
+    {% if decodedToken.Role == 1%}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1>Applicants</h1>
+
+            <table class="govuk-table">
+                <thead class="govuk-table__head">
+                    <tr class="govuk-table__row">
+                        <th scope="col" class="govuk-table__header">Email</th>
+                        <th scope="col" class="govuk-table__header">Status</th>
+                        <th scope="col" class="govuk-table__header"></th>
+                    </tr>
+                </thead>
+                <tbody class="govuk-table__body">
+                    {% for applicant in applicants %}
+                        {% if applicant.jobRoleName == jobRoleDetails.jobRoleId %}
+                            {% set applicantId = applicant.applicantId %}
+                            {% set email = applicant.email %}
+                            {% set jobRoleName = applicant.jobRoleName %}
+                            {% set status = applicant.status %}
+
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell">
+                                    <a href="/cv/{{ applicantId }}">{{ email }}</td>
+                                    <td class="govuk-table__cell">{{ status }}</td>
+                                    <td class="govuk-table__cell">
+                                    {% if status == "In Progress" %}
+                                    <div class="govuk-button-group govuk-button-group">
+                                        <form action="/update-application-status/{{ applicantId }}" class="form" method="post">
+                                            <input type="hidden" name="status" value="Hired">
+                                            <input type="hidden" name="jobRoleId" value="{{ jobRoleDetails.jobRoleId }}">
+                                            {{ govukButton({
+                                            text: "Hire"
+                                            }) }}
+                                        </form>
+                                        <form action="/update-application-status/{{ applicantId }}" class="form" method="post">
+                                            <input type="hidden" name="status" value="Rejected">
+                                            <input type="hidden" name="jobRoleId" value="{{ jobRoleDetails.jobRoleId }}">
+                                            {{ govukButton({
+                                            text: "Reject",
+                                            classes: "govuk-button--secondary"
+                                            }) }}
+                                        </form>
+                                    </div>
+                                    {% endif %}
+                                    </td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>  
+    </div>
+    {% endif %}
 {% endblock %}

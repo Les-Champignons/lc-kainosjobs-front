@@ -1,4 +1,3 @@
-// Import required modules
 import { expect } from "chai";
 import sinon from "sinon";
 import * as authController from "../../../src/controllers/AuthController";

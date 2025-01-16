@@ -9,7 +9,6 @@ export const URL: string = "job-roles";
 
 export const getAllJobRoles = async (token: String): Promise<JobRoleResponse[]> => {
 	try {
-		console.log(getHeader(token));
 		const response: AxiosResponse = await axios.get(URL, getHeader(token));
 		return response.data;
 	} catch (e) {

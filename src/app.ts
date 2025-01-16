@@ -6,7 +6,8 @@ import { logger } from "./logger";
 import { getLoginForm, getLogoutForm, postLoginForm } from "./controllers/AuthController";
 import jobRoleMiddleware from "./middleware/JobRoleMiddleware";
 import { getAllJobRolesList, getDetailedJobRoleController } from "./controllers/JobRoleController";
-import { getJobForm, postJobForm } from "./controllers/ApplyFormController";
+import { getCV, getJobForm, postJobForm } from "./controllers/ApplyFormController";
+import { updateStatus } from "./controllers/StatusController";
 import multer from "multer";
 import multerS3 from "multer-s3";
 import { S3Client } from "@aws-sdk/client-s3";
@@ -19,11 +20,7 @@ dotenv.config();
 
 const app = express();
 
-const bucketName = process.env.BUCKET_NAME || "default-bucket-name";
-const sessionSecret = process.env.SESSION_SECRET || "default-session-secret";
-const sessionMaxAge = parseInt(process.env.SESSION_MAX_AGE || "28800000");
-
-const s3 = new S3Client({
+export const s3 = new S3Client({
 	region: process.env.AWS_REGION,
 	credentials: {
 		accessKeyId: process.env.AWS_ACCESS_KEY_ID ?? "default string",
@@ -34,7 +31,7 @@ const s3 = new S3Client({
 const upload = multer({
 	storage: multerS3({
 		s3,
-		bucket: bucketName,
+		bucket: process.env.BUCKET_NAME,
 		metadata: function (req, file, callback) {
 			callback(null, { fieldName: file.fieldname });
 		},
@@ -46,8 +43,8 @@ const upload = multer({
 
 app.use(
 	session({
-		secret: sessionSecret,
-		cookie: { maxAge: sessionMaxAge },
+		secret: process.env.SESSION_SECRET,
+		cookie: { maxAge: parseInt(process.env.EXPIRATION_TIME) || 36000 },
 	})
 );
 
@@ -62,6 +59,8 @@ const env = nunjucks.configure(["node_modules/govuk-frontend/dist", "views"], {
 app.listen(process.env.port || 3000, () => {
 	logger.info(`Application listening on port ${process.env.port || 3000}`);
 });
+
+app.use(session({ secret: process.env.SESSION_SECRET, saveUninitialized: true, cookie: { maxAge: parseInt(process.env.SESSION_MAX_AGE) || 28800000 } }));
 
 declare module "express-session" {
 	interface SessionData {
@@ -82,7 +81,7 @@ app.get("/", function (req, res) {
 	res.render("index.njk");
 });
 
-app.get("/job-form", allowRoles([UserRole.User, UserRole.Admin]), getJobForm);
+app.get("/job-form/:jobRoleId", allowRoles([UserRole.User, UserRole.Admin]), getJobForm);
 app.post("/job-form", allowRoles([UserRole.User, UserRole.Admin]), upload.single("cv"), postJobForm);
 
 app.get("/login", getLoginForm);
@@ -92,6 +91,10 @@ app.get("/signout", allowRoles([UserRole.User, UserRole.Admin]), getLogoutForm);
 app.get("/job-roles", allowRoles([UserRole.User, UserRole.Admin]), jobRoleMiddleware, getAllJobRolesList);
 
 app.get("/job-roles/:id", allowRoles([UserRole.User, UserRole.Admin]), jobRoleMiddleware, getDetailedJobRoleController);
+
+app.post("/update-application-status/:id", updateStatus);
+
+app.get("/cv/:id", getCV);
 
 app.get("*", function (req, res) {
 	res.render("errors/404.njk");

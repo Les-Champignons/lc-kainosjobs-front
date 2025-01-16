@@ -47,7 +47,7 @@ describe("JobRoleService", function () {
 
 			mock.onGet(URL).reply(200, data);
 
-			const results = await getAllJobRoles();
+			const results = await getAllJobRoles("token");
 
 			expect(results[0]).to.deep.equal(jobRoleResponse);
 		});
@@ -55,7 +55,7 @@ describe("JobRoleService", function () {
 		it("should throw exception when 500 error returned from axios", async () => {
 			mock.onGet(URL).reply(500);
 
-			await getAllJobRoles().catch((error) => {
+			await getAllJobRoles("token").catch((error) => {
 				expect(error.message).to.equal("Failed to get job roles");
 			});
 		});
@@ -67,7 +67,7 @@ describe("JobRoleService", function () {
 
 			mock.onGet(`${URL}/1`).reply(200, data);
 
-			const result = await getDetailedJobRole("1");
+			const result = await getDetailedJobRole("1", "token");
 
 			expect(result).to.deep.equal(jobRoleDetailedResponse);
 		});
@@ -75,7 +75,7 @@ describe("JobRoleService", function () {
 		it("should throw exception when 500 error returned from axios", async () => {
 			mock.onGet(`${URL}/1`).reply(500);
 
-			await getDetailedJobRole("1").catch((error) => {
+			await getDetailedJobRole("1", "token").catch((error) => {
 				expect(error.message).to.equal("Failed to get job role detail");
 			});
 		});

@@ -15,10 +15,10 @@ export const postLoginForm = async (req: express.Request, res: express.Response)
 		const decodedToken: JwtToken = jwtDecode(req.session.token);
 
 		logger.info(`User ${decodedToken.User.email} logged in`);
-		return res.redirect("/");
+		return res.redirect("/job-roles");
 	} catch (e) {
 		res.locals.errormessage = `Login error: ${e.message}`;
-		logger.error(`${e.message}`);
+		logger.error(`${res.locals.errormessage}`);
 		res.render("auth/login.njk", req.body);
 	}
 };

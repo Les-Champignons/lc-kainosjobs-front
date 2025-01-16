@@ -84,7 +84,6 @@
 {% endblock %}
 
 {% block bodyEnd %}
-  {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
   <script type="module" src="/govuk-frontend.min.js"></script>
   <script type="module">
     import { initAll } from '/govuk-frontend.min.js'
