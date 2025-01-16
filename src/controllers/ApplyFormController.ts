@@ -26,8 +26,8 @@ export const postJobForm = async (req: Request, res: Response): Promise<void> =>
 		await createApplication(email, jobRole, (req.file as any).key);
 
 		return res.redirect(`/job-roles/${jobRole}`);
-	} catch (e){
-		throw new Error("Couldn't upload file!")
+	} catch (e) {
+		throw new Error("Couldn't upload file!");
 	}
 };
 
