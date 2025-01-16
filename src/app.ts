@@ -81,7 +81,7 @@ app.get("/", function (req, res) {
 	res.render("index.njk");
 });
 
-app.get("/job-form", allowRoles([UserRole.User, UserRole.Admin]), getJobForm);
+app.get("/job-form/:jobRoleId", allowRoles([UserRole.User, UserRole.Admin]), getJobForm);
 app.post("/job-form", allowRoles([UserRole.User, UserRole.Admin]), upload.single("cv"), postJobForm);
 
 app.get("/login", getLoginForm);
