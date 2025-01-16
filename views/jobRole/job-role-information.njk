@@ -36,26 +36,26 @@
             <h2 class="govuk-heading-m govuk-!-static-padding-bottom-3 govuk-!-static-padding-top-3">Full Job Description</h2>
             <p class="govuk-body">{{ jobRoleDetails.jobRoleDetailedParameters.description }}</p>
             <p class="govuk-body govuk-!-static-padding-bottom-3">{{ jobRoleDetails.jobRoleDetailedParameters.responsibilities }}</p>
-        
-        {% if jobRoleDetails.jobRoleDetailedParameters.numberOfOpenPositions > 0 %}
-            {{ govukButton({
+
+            {% if jobRoleDetails.jobRoleDetailedParameters.numberOfOpenPositions > 0 %}
+                {{ govukButton({
         text: "Apply Now",
         href: "/job-form/" + jobRoleDetails.jobRoleId
         }) }}
-        {% endif %}
+            {% endif %}
 
         </div>
 
-        <div class="govuk-grid-column-one-third">
-            <h2 class="govuk-heading-m">Related content</h2>
+            <div class="govuk-grid-column-one-third">
+                <h2 class="govuk-heading-m">Related content</h2>
 
-            <ul class="govuk-list">
-                <li>
-                    <a class="govuk-link" href="/job-roles/create">Create a job role</a>
-                </li>
-            </ul>
+                <ul class="govuk-list">
+                    <li>
+                        <a class="govuk-link" href="/job-roles/create">Create a job role</a>
+                    </li>
+                </ul>
 
-        </div>
+            </div>
     </div>
     
     {% if decodedToken.Role == 1%}
