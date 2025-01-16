@@ -14,7 +14,6 @@ export const updateStatus = async (req: Request, res: Response): Promise<void> =
 		logger.info(`Successfully updated applicant ${response.data} status to ${status}`);
 		return res.redirect(`/job-roles/${req.body.jobRoleId}`);
 	} catch (e) {
-		console.log(e);
 		throw new Error("Couldn't update applicant status!");
 	}
 };

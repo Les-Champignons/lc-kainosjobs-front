@@ -14,13 +14,9 @@ export const getAllApplicants = async (): Promise<ApplicantResponse[]> => {
 	}
 };
 
-//  todo return ID here, (etag is otherwise known as key)
 export const createApplication = async (email: String, jobRole: String, etag: String): Promise<number> => {
-	// const email = req.par
-	// const jobRoleName =
-	// const etag =
 	try {
-		const response: AxiosResponse = await axios.post(`${URL}/create`, { email, jobRoleName: jobRole, etag }); // , { email, jobRoleName, etag }
+		const response: AxiosResponse = await axios.post(`${URL}/create`, { email, jobRoleName: jobRole, etag });
 		return response.data;
 	} catch (e) {
 		throw new Error("Could not create application");

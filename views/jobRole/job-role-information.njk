@@ -72,8 +72,6 @@
                     </tr>
                 </thead>
                 <tbody class="govuk-table__body">
-                    {# todo: loop through the list of applicant CVs from S3 bucket and display (email and #}
-                    {# todo: put a button (link) beside each row, BOTH 'Hire' and 'Reject' #}
                     {% for applicant in applicants %}
                         {% if applicant.jobRoleName == jobRoleDetails.jobRoleId %}
                             {% set applicantId = applicant.applicantId %}

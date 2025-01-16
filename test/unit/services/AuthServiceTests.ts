@@ -1,5 +1,4 @@
 import { expect } from "chai";
-import sinon from "sinon";
 import axios, { AxiosError, InternalAxiosRequestConfig } from "axios";
 import MockAdapter from "axios-mock-adapter";
 import { getToken } from "../../../src/services/AuthService";
