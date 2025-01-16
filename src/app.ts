@@ -31,7 +31,7 @@ export const s3 = new S3Client({
 const upload = multer({
 	storage: multerS3({
 		s3,
-		bucket: process.env.BUCKET_NAME,
+		bucket: process.env.AWS_BUCKET_NAME,
 		metadata: function (req, file, callback) {
 			callback(null, { fieldName: file.fieldname });
 		},
