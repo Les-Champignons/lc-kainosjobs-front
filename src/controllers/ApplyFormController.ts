@@ -23,7 +23,7 @@ export const postJobForm = async (req: Request, res: Response): Promise<void> =>
 		const email = user.User.email;
 		const jobRole = req.body.jobRoleId;
 
-		await createApplication(email, jobRole, req.file.key);
+		await createApplication(email, jobRole, (req.file as any).key);
 
 		return res.redirect(`/job-roles/${jobRole}`);
 	} catch (e) {
