@@ -65,18 +65,6 @@ export const getDetailedJobRoleController = async (req: Request, res: Response):
 		return res.render("jobRole/job-role-information.njk", { jobRoleDetails: formattedJobRoleDetails, decodedToken, applicants, hiredApplicants: applicants.filter(a => a.status == "Hired")});
 	} catch (e) {
 		res.locals.errormessage = e.message;
-		console.log(e);
 		res.render("jobRole/job-role-information.njk");
 	}
 };
-
-export const updateNumberOfOpenPostions = async(req: Request, res: Response): Promise<void> => {
-	const jobRoleId = req.params.id
-	console.log(jobRoleId)
-	try {
-		
-		return
-	} catch (e) {
-
-	}
-}
